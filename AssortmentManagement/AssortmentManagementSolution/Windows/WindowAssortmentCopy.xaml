@@ -1,0 +1,25 @@
+﻿<Window x:Class="AssortmentManagement.Windows.WindowAssortmentCopy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uservalues="clr-namespace:AssortmentManagement.UserValues"
+        Title="Копирование ассортимента" WindowState="Maximized" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--<Menu Grid.Row="0" Name="menuMain">-->
+            <Button Content="Создать документ" Click="Button_Click" Grid.Row="0"></Button>
+            <!--<MenuItem Header="Создать документ">
+                <MenuItem Header="Обычный" Click="MenuItemDocCreate" DataContext="{x:Static uservalues:DocTypes.Regular}"/>
+                <MenuItem Header="Оперативный" Click="MenuItemDocCreate" DataContext="{x:Static uservalues:DocTypes.Operative}"/>
+                <MenuItem Header="Расходники склад" Click="MenuItemDocCreate" DataContext="{x:Static uservalues:DocTypes.ExpendMaterial}"/>
+            </MenuItem>-->
+        <!--</Menu>-->
+        <dxg:GridControl Grid.Row="1" HorizontalAlignment="Stretch" Name="gridControl1" VerticalAlignment="Stretch">
+            <dxg:GridControl.View>
+                <dxg:TableView Name="tableView1" MultiSelectMode="Cell" />
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+</Window>

@@ -1,0 +1,45 @@
+﻿<Window x:Class="AssortmentManagement.Windows.WindowChain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v11.2" xmlns:Windows="clr-namespace:AssortmentManagement.Windows"
+        xmlns:WindowChain="clr-namespace:AssortmentManagement.Converters.WindowChain" Title="Логистические цепочки" Height="750" Width="550">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="CellTemplateChain">
+                <Grid>
+                    <Rectangle Fill="{Binding Path=Value, Mode=OneWay, Converter={WindowChain:NullConverterColor}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                    <TextBlock TextAlignment="Center" TextWrapping="NoWrap" 
+                                   Margin="5,-2,5,-2" Text="{Binding Path=Value, Mode=OneWay}"
+                                   Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="CellTemplateChainAction">
+                <Grid>
+                    <Rectangle Fill="{Binding Path=Value, Mode=OneWay, Converter={WindowChain:NullConverterColor}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                    <TextBlock TextAlignment="Center" TextWrapping="NoWrap" 
+                                   Margin="5,-2,5,-2" Text="{Binding Path=Value, Mode=OneWay, Converter={WindowChain:NullConverterValueAction}}"
+                                   Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35">
+            </RowDefinition>
+            <RowDefinition Height="0">
+            </RowDefinition>
+            <RowDefinition Height="*">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <dxg:GridControl HorizontalAlignment="Stretch" Name="gridControl1" VerticalAlignment="Stretch" Grid.Row="2">
+        </dxg:GridControl>
+        <Label Content="Цепочка" Grid.Row="0" VerticalAlignment="Center"/>
+        <ComboBox Height="23" HorizontalAlignment="Left" Name="comboBox1" VerticalAlignment="Center" Width="120" Margin="60,6,0,6" />
+        <Button Content="Применить" Height="23" Margin="187,6,0,6" Name="buttonApply" VerticalAlignment="Center" IsEnabled="False" HorizontalAlignment="Left" Width="75" />
+        <Label Name="labelError" Visibility="Hidden" Content="Ошибка" VerticalAlignment="Center" Margin="264,5,12,5" Foreground="#FFD12B2B" />
+        <Label Name="labelSuccess" Visibility="Hidden" Content="Цепочка заполнена верно" VerticalAlignment="Center" Margin="264,5,12,5" Foreground="Green" />
+    </Grid>
+</Window>

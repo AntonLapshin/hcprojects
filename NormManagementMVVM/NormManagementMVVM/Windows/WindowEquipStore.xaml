@@ -1,0 +1,76 @@
+﻿<Window x:Class="NormManagementMVVM.Windows.WindowEquipStore"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Справочник. Содержание типов и стандартов оборудования в магазинах" Height="300" Width="500"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+         Loaded="WindowLoaded"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+  <Grid>
+        <Grid.Resources>
+            <ControlTemplate x:Key="{dxgt:TableViewThemeKey ResourceKey=GroupPanelContentTemplate}" TargetType="{x:Type Control}">
+                <dx:MeasurePixelSnapper>
+                    <Border HorizontalAlignment="Stretch" x:Name="GroupPanelBorder" Width="Auto" Background="#00FFFFFF" BorderThickness="1,1,1,1">
+                        <Border.Margin>
+                            <Binding Path="IsGrouped" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <dx:BoolToObjectConverter TrueValue="4,6,4,8" FalseValue="0"/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Border.Margin>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <TextBlock x:Name="PART_GroupPanelDragText" Style="{DynamicResource {dxgt:TableViewThemeKey ResourceKey=GroupPanelDragTextStyle}}" HorizontalAlignment="Center" Margin="4,10,4,14">
+                         <TextBlock.Text>
+                            <Binding Path="(dxg:GridControl.CurrentView).LocalizationDescriptor" RelativeSource="{RelativeSource TemplatedParent}" ConverterParameter="GridGroupPanelText">
+                                <Binding.Converter>
+                                    <dxg:DynamicLocalizationStringValueConvertor />
+                                </Binding.Converter>
+                            </Binding>
+                        </TextBlock.Text>
+                                </TextBlock>
+                                <dx:CachedItemsControl ItemsSource="{Binding Path=(dxg:GridControl.CurrentView).GroupedColumns, RelativeSource={RelativeSource TemplatedParent}}" x:Name="groupPanelItemsControl" Style="{DynamicResource {dxgt:GroupRowThemeKey ResourceKey=GroupItemsControlStyle}}"/>
+                            </Grid>
+                            <Button Name="btnAddEquipStore" ToolTip="Добавить"  Grid.Column="1" Width="50" Height="50">
+                                <Image Source="..\Images\edit_add.png" />
+                            </Button>
+                            <Button Name="btnDeleteEquipStore" ToolTip="Удалить" Grid.Column="2" Width="50" Height="50">
+                                <Image Source="..\Images\error.ico" />
+                            </Button>
+                            <Button Name="btnSave" ToolTip="Сохранить" Grid.Column="3" Width="50" Height="50">
+                                <Image Source="..\Images\ok.ico" />
+                            </Button>
+                            <Button Name="btnExit" ToolTip="Выход" Grid.Column="4" Width="50" Height="50">
+                                <Image Source="..\Images\logout.png" />
+                            </Button>
+                        </Grid>
+                    </Border>
+                </dx:MeasurePixelSnapper>
+            </ControlTemplate>
+        </Grid.Resources>
+            <dxg:GridControl Name="equipStoreGridControl" Grid.ColumnSpan="3">
+      <dxg:GridControl.Columns>
+        <dxg:GridColumn FieldName="STORE" Header="Магазин.Номер" AllowEditing="false"
+                        FilterPopupMode="CheckedList">
+        </dxg:GridColumn>
+        <dxg:GridColumn FieldName="STORE1.STORE_NAME" Header="Магазин.Наименование" AllowEditing="false"
+                        FilterPopupMode="CheckedList" />
+        <dxg:GridColumn FieldName="ID_EQUIP" Header="Тип оборудования.Номер" AllowEditing="false"
+                        FilterPopupMode="CheckedList">
+        </dxg:GridColumn>
+        <dxg:GridColumn FieldName="Y_NORM_EQUIP_TYPE.DESCRIPTION" Header="Тип оборудования.Наименование"
+                        AllowEditing="false" FilterPopupMode="CheckedList" />
+        <dxg:GridColumn FieldName="STANDARD" Header="Стандарт" FilterPopupMode="CheckedList">
+        </dxg:GridColumn>
+      </dxg:GridControl.Columns>
+    </dxg:GridControl>    
+  </Grid>
+</Window>

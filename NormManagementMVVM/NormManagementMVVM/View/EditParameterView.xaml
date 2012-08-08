@@ -1,0 +1,28 @@
+﻿<Window x:Class="NormManagementMVVM.View.EditParameterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4" WindowStartupLocation="CenterOwner"
+        Title="Изменение параметра" DataContext="{Binding Parameters, Source={StaticResource Locator}}" mc:Ignorable="d" Height="436" Width="302">
+    <Grid>
+        <dxg:GridControl Name="paramGridControl" ItemsSource="{Binding Path=Parameters}">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="DESC_RU" Header="Параметр" AllowEditing="false" AutoFilterCondition="Like" AllowAutoFilter="True"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView Name="tbParam">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                            <GalaSoft_MvvmLight_Command:EventToCommand 
+                                CommandParameter="{Binding Path=FocusedRow, ElementName=tbParam}"
+                                Command="{Binding Path=CommandSelectParameter, Mode=OneWay}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+</Window>

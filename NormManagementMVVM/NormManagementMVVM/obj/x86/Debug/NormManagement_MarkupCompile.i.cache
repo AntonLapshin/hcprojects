@@ -1,0 +1,20 @@
+﻿NormManagement
+
+
+winexe
+C#
+.cs
+C:\Users\lapshin\Documents\Visual Studio 2010\TeamFoundationProjects\NormManagement2\NormManagement\obj\x86\Debug\
+NormManagement
+none
+false
+DEBUG;TRACE
+C:\Users\lapshin\Documents\Visual Studio 2010\TeamFoundationProjects\NormManagement2\NormManagement\App.xaml
+15632993541
+6177813367
+50-379330095
+26648428000
+Controls\CellControl.xaml;Controls\NormativeControl.xaml;Controls\PlusControl.xaml;Controls\RowControl.xaml;Controls\RowUnitPanelControl.xaml;Windows\WindowDirectoryParameters.xaml;Windows\WindowEquipStore.xaml;Windows\WindowEquipType.xaml;Windows\WindowMain.xaml;Windows\WindowNorm.xaml;Windows\WindowEditParameters.xaml;Windows\WindowEditParameterValues.xaml;Windows\WindowParameters.xaml;Windows\WindowProfile.xaml;Windows\WindowServerChoose.xaml;
+
+True
+

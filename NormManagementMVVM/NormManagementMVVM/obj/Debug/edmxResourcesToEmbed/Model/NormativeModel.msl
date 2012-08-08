@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="NormEntities">
+    <EntitySetMapping Name="Y_NORM_NORMATIVE_CELL">
+      <EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_CELL">
+        <MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_CELL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROW" ColumnName="ID_ROW" />
+          <ScalarProperty Name="ID_COLUMN" ColumnName="ID_COLUMN" />
+          <ScalarProperty Name="ID_PARAM" ColumnName="ID_PARAM" />
+          <ScalarProperty Name="PARAM_VALUE" ColumnName="PARAM_VALUE" />
+          <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_NORMATIVE_HEAD">
+      <EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_HEAD">
+        <MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_HEAD">
+          <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_PROFILE" ColumnName="ID_PROFILE" />
+          <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+          <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+          <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_NORMATIVE_ROW">
+      <EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_ROW">
+        <MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_ROW">
+          <ScalarProperty Name="SKU_MAX" ColumnName="SKU_MAX" />
+          <ScalarProperty Name="SKU_MIN" ColumnName="SKU_MIN" />
+          <ScalarProperty Name="DELTA_MAX" ColumnName="DELTA_MAX" />
+          <ScalarProperty Name="DELTA_MIN" ColumnName="DELTA_MIN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ROW" ColumnName="ID_ROW" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="MAX_COLUMN" ColumnName="MAX_COLUMN" />
+          <ScalarProperty Name="DELTA" ColumnName="DELTA" />
+          <ScalarProperty Name="SEQ_NUM" ColumnName="SEQ_NUM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_PARAMETERS">
+      <EntityTypeMapping TypeName="Model.Y_NORM_PARAMETERS">
+        <MappingFragment StoreEntitySet="Y_NORM_PARAMETERS">
+          <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+          <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+          <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+          <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PARAM_TYPE" ColumnName="PARAM_TYPE" />
+          <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="DESC_RU" ColumnName="DESC_RU" />
+          <ScalarProperty Name="UNIT_BY_PARAM_VALUE" ColumnName="UNIT_BY_PARAM_VALUE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_PROFILE_DETAIL">
+      <EntityTypeMapping TypeName="Model.Y_NORM_PROFILE_DETAIL">
+        <MappingFragment StoreEntitySet="Y_NORM_PROFILE_DETAIL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_PARAM" ColumnName="ID_PARAM" />
+          <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_PROFILE_HEAD">
+      <EntityTypeMapping TypeName="Model.Y_NORM_PROFILE_HEAD">
+        <MappingFragment StoreEntitySet="Y_NORM_PROFILE_HEAD">
+          <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+          <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="ID_EQUIP" ColumnName="ID_EQUIP" />
+          <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+          <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+          <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" FunctionName="Model.Store.Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" />
+    <EntitySetMapping Name="STORE">
+      <EntityTypeMapping TypeName="Model.STORE">
+        <MappingFragment StoreEntitySet="STORE">
+          <ScalarProperty Name="ORG_UNIT_ID" ColumnName="ORG_UNIT_ID" />
+          <ScalarProperty Name="TSF_ENTITY_ID" ColumnName="TSF_ENTITY_ID" />
+          <ScalarProperty Name="SISTER_STORE" ColumnName="SISTER_STORE" />
+          <ScalarProperty Name="DUNS_LOC" ColumnName="DUNS_LOC" />
+          <ScalarProperty Name="DUNS_NUMBER" ColumnName="DUNS_NUMBER" />
+          <ScalarProperty Name="ORIG_CURRENCY_CODE" ColumnName="ORIG_CURRENCY_CODE" />
+          <ScalarProperty Name="INTEGRATED_POS_IND" ColumnName="INTEGRATED_POS_IND" />
+          <ScalarProperty Name="TRAN_NO_GENERATED" ColumnName="TRAN_NO_GENERATED" />
+          <ScalarProperty Name="LANG" ColumnName="LANG" />
+          <ScalarProperty Name="CURRENCY_CODE" ColumnName="CURRENCY_CODE" />
+          <ScalarProperty Name="START_ORDER_DAYS" ColumnName="START_ORDER_DAYS" />
+          <ScalarProperty Name="STOP_ORDER_DAYS" ColumnName="STOP_ORDER_DAYS" />
+          <ScalarProperty Name="DEFAULT_WH" ColumnName="DEFAULT_WH" />
+          <ScalarProperty Name="TRANSFER_ZONE" ColumnName="TRANSFER_ZONE" />
+          <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+          <ScalarProperty Name="MALL_NAME" ColumnName="MALL_NAME" />
+          <ScalarProperty Name="STORE_FORMAT" ColumnName="STORE_FORMAT" />
+          <ScalarProperty Name="CHANNEL_ID" ColumnName="CHANNEL_ID" />
+          <ScalarProperty Name="STOCKHOLDING_IND" ColumnName="STOCKHOLDING_IND" />
+          <ScalarProperty Name="VAT_INCLUDE_IND" ColumnName="VAT_INCLUDE_IND" />
+          <ScalarProperty Name="VAT_REGION" ColumnName="VAT_REGION" />
+          <ScalarProperty Name="LINEAR_DISTANCE" ColumnName="LINEAR_DISTANCE" />
+          <ScalarProperty Name="SELLING_SQUARE_FT" ColumnName="SELLING_SQUARE_FT" />
+          <ScalarProperty Name="TOTAL_SQUARE_FT" ColumnName="TOTAL_SQUARE_FT" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE_NUMBER" ColumnName="PHONE_NUMBER" />
+          <ScalarProperty Name="FAX_NUMBER" ColumnName="FAX_NUMBER" />
+          <ScalarProperty Name="REMODEL_DATE" ColumnName="REMODEL_DATE" />
+          <ScalarProperty Name="ACQUIRED_DATE" ColumnName="ACQUIRED_DATE" />
+          <ScalarProperty Name="STORE_CLOSE_DATE" ColumnName="STORE_CLOSE_DATE" />
+          <ScalarProperty Name="STORE_OPEN_DATE" ColumnName="STORE_OPEN_DATE" />
+          <ScalarProperty Name="STORE_MGR_NAME" ColumnName="STORE_MGR_NAME" />
+          <ScalarProperty Name="STORE_CLASS" ColumnName="STORE_CLASS" />
+          <ScalarProperty Name="STORE_NAME_SECONDARY" ColumnName="STORE_NAME_SECONDARY" />
+          <ScalarProperty Name="STORE_NAME3" ColumnName="STORE_NAME3" />
+          <ScalarProperty Name="STORE_NAME10" ColumnName="STORE_NAME10" />
+          <ScalarProperty Name="STORE_NAME" ColumnName="STORE_NAME" />
+          <ScalarProperty Name="STORE1" ColumnName="STORE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_EQUIP_STORE">
+      <EntityTypeMapping TypeName="Model.Y_NORM_EQUIP_STORE">
+        <MappingFragment StoreEntitySet="Y_NORM_EQUIP_STORE">
+          <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+          <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+          <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+          <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+          <ScalarProperty Name="STANDARD" ColumnName="STANDARD" />
+          <ScalarProperty Name="ID_EQUIP" ColumnName="ID_EQUIP" />
+          <ScalarProperty Name="STORE" ColumnName="STORE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_EQUIP_TYPE">
+      <EntityTypeMapping TypeName="Model.Y_NORM_EQUIP_TYPE">
+        <MappingFragment StoreEntitySet="Y_NORM_EQUIP_TYPE">
+          <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+          <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+          <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+          <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Y_NORM_NORMATIVE_CONTROLLER">
+      <EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_CONTROLLER">
+        <MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_CONTROLLER">
+          <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

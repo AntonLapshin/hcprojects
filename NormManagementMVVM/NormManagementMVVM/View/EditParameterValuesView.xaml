@@ -1,0 +1,81 @@
+﻿<Window x:Class="NormManagementMVVM.View.EditParameterValuesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" mc:Ignorable="d"
+        DataContext="{Binding Path=ParameterValues, Source={StaticResource Locator}}" Height="360"
+        Width="520" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize"
+        Title="{Binding Path=ParameterValues.Title, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+<!--
+        <dxe:ListBoxEdit Name="listBoxAllParams" AllowItemHighlighting="True" ItemsSource="{Binding Path=ParamValuesAll}" SelectedItem="{Binding Path=SingleElement, Mode=TwoWay}"
+                  SelectionMode="Extended" IsEnabled="True" Margin="0,32,0,100">
+        </dxe:ListBoxEdit>
+        <TextBlock Text="{Binding Path=SingleElement}" Margin="0,240,0,0"></TextBlock>
+-->
+        <dxe:ListBoxEdit Name="listBoxAllParams" AllowItemHighlighting="True" ItemsSource="{Binding Path=ValuesLeft}" Tag="{Binding}"
+                  SelectionMode="Extended" IsEnabled="True" Margin="3,50,3,3" SelectedIndexChanged="listBoxAllParams_SelectedIndexChanged">
+        </dxe:ListBoxEdit>
+        
+        <Border BorderBrush="White" BorderThickness="1,1,1,1" Grid.Column="4">
+            <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <dxe:ListBoxEdit ItemsSource="{Binding Path=GroupsRight}" Margin="3,3,3,3">
+                    <dxe:ListBoxEdit.ItemTemplate>
+                        <DataTemplate>
+                            <dxe:ListBoxEdit HorizontalAlignment="Stretch" SelectionMode="Extended" ItemsSource="{Binding}" Tag="{Binding Path=ParameterValues, Source={StaticResource Locator}}" SelectedIndexChanged="ListBoxEdit_SelectedIndexChanged">
+                            </dxe:ListBoxEdit>
+                        </DataTemplate>
+                    </dxe:ListBoxEdit.ItemTemplate>
+                </dxe:ListBoxEdit>
+            </ScrollViewer>
+        </Border>
+
+        <GroupBox Header="Управление" Name="groupBox1" Grid.Column="1" Foreground="White" BorderBrush="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Name="btnRight" Template="{DynamicResource GlassButton}" Content="Создать группу" Command="{Binding CommandMoveRight}"
+                 Height="35" Width="115" Grid.Row="0" Opacity="1" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Foreground="White" />
+
+                <Button Name="btnGroupBack" Template="{DynamicResource GlassButton}" Content="Удалить группу" Command="{Binding CommandMoveLeftGroup}"
+                VerticalAlignment="Center" HorizontalAlignment="Center"  Height="35" Width="115" Grid.Row="1"
+                Foreground="White" />
+
+                <Button Name="btnLeft" Template="{DynamicResource GlassButton}" Content="Удалить элемент" Command="{Binding CommandMoveLeft}"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="115" Grid.Row="2"
+                Foreground="White" />
+
+                <Button Name="btnAll" Template="{DynamicResource GlassButton}" Content="Перенести всё" Command="{Binding CommandMoveRightAll}"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="115" Grid.Row="3"
+                Foreground="White" />
+
+                <Button Name="btnAllBack" Template="{DynamicResource GlassButton}" Content="Удалить всё" Command="{Binding CommandMoveLeftAll}"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="115" Grid.Row="4"
+                Foreground="White" />
+
+                <Button Name="btnOk" IsDefault="true" Template="{DynamicResource GlassButton}" Content="OK" Command="{Binding CommandProcess}"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="40" Grid.Row="5"
+                Foreground="White" />
+            </Grid>
+        </GroupBox>
+        <Label Content="Сортировка" Margin="0,1,0,297" HorizontalAlignment="Center"></Label>
+        <Label Content="Назв." Margin="13,22,115,276" HorizontalAlignment="Center"></Label>
+        <Label Content="Код" Margin="113,22,25,276" HorizontalAlignment="Center"></Label>
+        <dxe:TrackBarEdit HorizontalAlignment="Left" Name="trackBarSort" VerticalAlignment="Top" Width="50"
+                      Height="26" Maximum="1" NullText="0" Value="{Binding Path=SortType, Mode=TwoWay}" Margin="59,23,0,0" />
+    </Grid>
+</Window>

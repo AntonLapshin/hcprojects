@@ -1,0 +1,5 @@
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\bin\Debug\SharedComponents.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\bin\Debug\SharedComponents.pdb
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\obj\Debug\SharedComponents.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\obj\Debug\SharedComponents.pdb

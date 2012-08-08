@@ -1,0 +1,12 @@
+﻿<Window x:Class="NormManagementMVVM.Windows.WindowServerChoose"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Выбор сервера" Height="92" Width="128"
+        WindowStartupLocation="CenterScreen">
+  <StackPanel Orientation="Vertical">
+    <RadioButton Content="Боевой сервер" Height="16" HorizontalAlignment="Left" Name="prodRadioBtn"
+                 VerticalAlignment="Top" />
+    <RadioButton Content="Тестовый сервер" Height="16" HorizontalAlignment="Left" Name="tstRadioBtn"
+                 VerticalAlignment="Top" />
+    <Button Content="Запуск" Name="btnOk" Click="btnOk_Click" />
+  </StackPanel>
+</Window>

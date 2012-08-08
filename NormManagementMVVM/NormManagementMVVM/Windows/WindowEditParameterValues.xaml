@@ -1,0 +1,56 @@
+﻿<Window x:Class="NormManagementMVVM.Windows.WindowEditParameterValues"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Title="Изменение значений параметра" Height="360"
+        Width="520" WindowStartupLocation="CenterOwner"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" ResizeMode="CanMinimize">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <dxe:ListBoxEdit Name="listBoxAllParams" AllowItemHighlighting="True" DisplayMember="NAME" ValueMember="VALUE"
+                     SelectionMode="Extended" IsEnabled="True" Margin="0,32,0,0"></dxe:ListBoxEdit>
+    <!--<dxe:ListBoxEdit Name="listBoxSelectedParams" ItemsSource="{Binding _selectedParams}"  Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" AllowItemHighlighting="True"></dxe:ListBoxEdit>-->
+    <Border BorderBrush="#FF6288BE" BorderThickness="1,1,1,1" Grid.Column="4">
+      <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel Name="rowParams" Orientation="Vertical" HorizontalAlignment="Stretch">
+        </StackPanel>
+      </ScrollViewer>
+    </Border>
+    <GroupBox Header="Управление" Name="groupBox1" Grid.Column="1" Foreground="White" BorderBrush="White">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Name="btnRight" Template="{DynamicResource GlassButton}" Content="Создать группу"
+                Click="BtnRightClick" Height="35" Width="115" Grid.Row="0" Opacity="1" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Foreground="White" />
+        <Button Name="btnGroupBack" Template="{DynamicResource GlassButton}" Content="Удалить группу"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnGroupBackClick" Height="35" Width="115" Grid.Row="1"
+                Foreground="White" />
+        <Button Name="btnLeft" Template="{DynamicResource GlassButton}" Content="Удалить элемент"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnLeftClick" Height="35" Width="115" Grid.Row="2"
+                Foreground="White" />
+        <Button Name="btnAll" Template="{DynamicResource GlassButton}" Content="Перенести всё"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnAllClick" Height="35" Width="115" Grid.Row="3"
+                Foreground="White" />
+        <Button Name="btnAllBack" Template="{DynamicResource GlassButton}" Content="Удалить всё"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnAllBackClick" Height="35" Width="115" Grid.Row="4"
+                Foreground="White" />
+        <Button Name="btnOk" IsDefault="true" Template="{DynamicResource GlassButton}" Content="OK"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnOkClick" Height="35" Width="40" Grid.Row="5"
+                Foreground="White" />
+      </Grid>
+    </GroupBox>
+    <dxe:TrackBarEdit HorizontalAlignment="Left" Name="trackBarEdit1" VerticalAlignment="Top" Width="166"
+                      Height="26" Maximum="1" NullText="0" EditValueChanging="TrackBarEdit1EditValueChanging" />
+    <!--<Button Content="Выбрать значения" Name="btnParamValues" Template ="{DynamicResource GlassButton}" Click="BtnParamValuesClick"/>-->
+  </Grid>
+</Window>

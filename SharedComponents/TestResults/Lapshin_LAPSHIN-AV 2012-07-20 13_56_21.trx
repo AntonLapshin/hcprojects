@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="04e93a7d-b750-4bce-9d90-01b73643cde7" name="Lapshin@LAPSHIN-AV 2012-07-20 13:56:21" runUser="HCLASS\Lapshin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Локальные" id="85673032-7ead-40cd-b1d3-0b868db54eb2">
+    <Description>Это - параметры по умолчанию для локального тестового запуска.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Lapshin_LAPSHIN-AV 2012-07-20 13_56_21">
+      <DeploymentItem filename="C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents\bin\Debug\SharedComponents.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-07-20T13:56:21.8373159+07:00" queuing="2012-07-20T13:56:21.8433159+07:00" start="2012-07-20T13:56:21.8473159+07:00" finish="2012-07-20T13:56:22.0573159+07:00" />
+  <ResultSummary outcome="Inconclusive">
+    <Counters total="1" executed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="1" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetConnectionStringTest" storage="c:\users\lapshin\documents\visual studio 2010\tfs2010projects\sharedcomponents\sharedcomponents.tests\bin\debug\sharedcomponents.tests.dll" id="9f8c5a64-07cf-a993-390a-f182a2c8faaa">
+      <Execution id="bdf57ea0-3388-40bf-afac-860c55a7e024" />
+      <TestMethod codeBase="C:/Users/lapshin/Documents/Visual Studio 2010/TFS2010PROJECTS/SharedComponents/SharedComponents.Tests/bin/Debug/SharedComponents.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SharedComponents.Tests.RMSConnectionTest, SharedComponents.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetConnectionStringTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Отсутствующие в списке результаты" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="9f8c5a64-07cf-a993-390a-f182a2c8faaa" executionId="bdf57ea0-3388-40bf-afac-860c55a7e024" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="bdf57ea0-3388-40bf-afac-860c55a7e024" testId="9f8c5a64-07cf-a993-390a-f182a2c8faaa" testName="GetConnectionStringTest" computerName="LAPSHIN-AV" duration="00:00:00.0229058" startTime="2012-07-20T13:56:21.8493159+07:00" endTime="2012-07-20T13:56:22.0463159+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Inconclusive" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bdf57ea0-3388-40bf-afac-860c55a7e024">
+      <Output>
+        <ErrorInfo>
+          <Message>Ошибка в Assert.Inconclusive. Проверьте правильность этого метода теста.</Message>
+          <StackTrace>   в SharedComponents.Tests.RMSConnectionTest.GetConnectionStringTest() в C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\SharedComponents\SharedComponents.Tests\RMSConnectionTest.cs:строка 79
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

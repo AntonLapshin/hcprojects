@@ -1,0 +1,58 @@
+﻿<Window x:Class="AssortmentManagement.Windows.WindowRowOriented"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Converter="clr-namespace:AssortmentManagement.Windows"
+        Title="Управление ассортиментом. Ввод данных" Height="705" Width="727" xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid" xmlns:Control="clr-namespace:AssortmentManagement.Controls"
+        xmlns:PivotGridControlRowOriented="clr-namespace:AssortmentManagement.Converters.PivotGridControlRowOriented" xmlns:Controls="clr-namespace:AssortmentManagement.Controls" Icon="/AssortmentManagement;component/icon.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="CellTemplateRowOriented">
+                <Grid>
+                    <Rectangle Fill="{Binding Path=Value, Mode=OneWay, Converter={PivotGridControlRowOriented:NullConverterColor}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        <TextBlock TextAlignment="Center" TextWrapping="NoWrap" 
+                                   Margin="5,-2,5,-2" Text="{Binding Path=Value, Mode=OneWay, Converter={PivotGridControlRowOriented:NullConverterValue}}"
+                                   Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        </TextBlock>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="ItemTemplate">
+                <WrapPanel>
+                    <Image Source="pack://application:,,,/Images/filter.gif" Stretch="None" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" Margin="0,-1,2,-1" />
+                    <Label Name="labelHeader" Padding="0,0,0,0" Content="{Binding Path=DisplayText, Mode=OneWay}" HorizontalAlignment="Right" Foreground="White"></Label>
+                </WrapPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Name="menuMain">
+            <MenuItem Name="menuItemNum" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="False"  IsCheckable="False" Height="22" IsChecked="False" Width="25" DataContext="{Binding}" Click="MenuItemFieldsListClick">
+                <MenuItem.Icon>
+                    <Image Source="/AssortmentManagement;component/Images/three.png" Height="16" Width="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Документ">
+                <MenuItem Header="Сохранить" Click="DocumentSaveHandler"/>
+                <MenuItem Header="Задать комментарий" Click="DocumentDescription"/>
+                <MenuItem Header="Проверить" Click="MenuItemCheckClick"></MenuItem>
+            </MenuItem>            
+            <MenuItem Header="Параметры">
+                <MenuItem Header="Промежуточные итоги" IsCheckable="True" IsChecked="False" Click="MenuItemSummaryClick" />
+                <MenuItem Header="Общие итоги" IsCheckable="True" IsChecked="False" Click="MenuItemSummaryTotalClick" />
+                <MenuItem Header="Оптимизировать" Click="MenuItemOptimizeClick" />
+                <MenuItem Header="Временные таблицы" Click="MenuItemGttTablesCopyClick" />
+            </MenuItem>
+            <MenuItem Name="menuItemFieldsList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsCheckable="False" Height="22" IsChecked="False" Width="25" DataContext="{Binding}" Click="MenuItemFieldsListClick" Opacity="0.5">
+                <MenuItem.Icon>
+                    <Image Source="/AssortmentManagement;component/Images/fields_list.png" Height="16" Width="16" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <!--<MenuItem Name="menuItemDesc" Header="Задать комментарий" Click="MenuItemDescClick"></MenuItem>-->
+        </Menu>
+        <Controls:PivotGridControlRowOriented HorizontalAlignment="Left" x:Name="_pivotGridControl2" Grid.Row="1" RowTotalsLocation="Far" />
+    </Grid>
+</Window>

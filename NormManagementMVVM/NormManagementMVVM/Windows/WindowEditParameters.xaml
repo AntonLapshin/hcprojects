@@ -1,0 +1,15 @@
+﻿<Window x:Class="NormManagementMVVM.Windows.WindowEditParameters"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         Title="Изменение параметра" Height="436" Width="302"
+        WindowStartupLocation="CenterOwner" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        Loaded="WindowLoaded">
+  <Grid Width="280">
+    <!--<dxe:ListBoxEdit Height="351" AllowItemHighlighting="True" HorizontalAlignment="Left" Margin="12,12,0,0" Name="listBox1" VerticalAlignment="Top" Width="256" SelectedIndexChanged="ListBox1SelectedIndexChanged"/>-->
+    <dxg:GridControl Name="paramGridControl">
+      <dxg:GridControl.Columns>
+        <dxg:GridColumn FieldName="DESC_RU" Header="Параметр" AllowEditing="false" AutoFilterCondition="Like" AllowAutoFilter="True"/>
+      </dxg:GridControl.Columns>
+    </dxg:GridControl>
+  </Grid>
+</Window>

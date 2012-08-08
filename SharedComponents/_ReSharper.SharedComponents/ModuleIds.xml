@@ -1,0 +1,4 @@
+<Modules>
+  <Module PersistentId="1DA861DE-D91A-426C-A78A-06C3073AC296" ModuleId="SharedComponents" />
+  <Module PersistentId="E625AA95-C363-4798-BFB2-626CC99DA22F" ModuleId="SharedComponents.Tests" />
+</Modules>

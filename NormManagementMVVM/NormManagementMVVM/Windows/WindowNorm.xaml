@@ -1,0 +1,8 @@
+﻿<Window x:Class="NormManagementMVVM.Windows.WindowNorm" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Управление нормативами вместимости" Height="600"
+        Width="800" xmlns:Controls="clr-namespace:NormManagementMVVM.Controls" WindowState="Maximized"
+        WindowStartupLocation="CenterScreen" Closing="WindowClosing">
+  <Grid>
+    <Controls:NormativeControl HorizontalAlignment="Stretch" x:Name="normativeControl" VerticalAlignment="Stretch" />
+  </Grid>
+</Window>

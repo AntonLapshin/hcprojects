@@ -1,0 +1,86 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:UI/f:UIHelper.cs" caret="1845" fromTop="22" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:OrSpecification.cs" caret="76" fromTop="3" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:Specification.cs" caret="231" fromTop="7" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionExtension.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionVisitor.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:AndSpecification.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:ISpecification.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:CompositeSpecification.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ParameterRebinder.cs" caret="0" fromTop="0" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="2610" fromTop="69" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:User.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Controls/f:GifImage.cs" caret="387" fromTop="12" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:RMSConnection.cs" caret="2495" fromTop="39" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:UI/f:UIHelper.cs" caret="2844" fromTop="68" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:UI/f:UIHelper.cs" caret="50" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionExtension.cs" caret="1929" fromTop="38" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionExtension.cs" caret="1929" fromTop="37" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionVisitor.cs" caret="14143" fromTop="365" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ParameterRebinder.cs" caret="1186" fromTop="32" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:CompositeSpecification.cs" caret="18" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:AndSpecification.cs" caret="18" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:OrSpecification.cs" caret="18" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionExtension.cs" caret="1929" fromTop="38" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ExpressionVisitor.cs" caret="14143" fromTop="365" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ParameterRebinder.cs" caret="1046" fromTop="3" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ParameterRebinder.cs" caret="1186" fromTop="32" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:AndSpecification.cs" caret="80" fromTop="3" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:CompositeSpecification.cs" caret="36" fromTop="2" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:ISpecification.cs" caret="36" fromTop="1" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:OrSpecification.cs" caret="76" fromTop="3" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:Specification.cs" caret="1451" fromTop="5" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Specification/f:Specification.cs" caret="1568" fromTop="49" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Linq/d:Extension/f:ParameterRebinder.cs" caret="0" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:User.cs" caret="23" fromTop="0" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:RMSConnection.cs" caret="140" fromTop="5" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:RMSConnection.cs" caret="4411" fromTop="10" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="807" fromTop="29" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="368" fromTop="14" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="2601" fromTop="31" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="1901" fromTop="15" />
+      <File id="E625AA95-C363-4798-BFB2-626CC99DA22F/f:RMSConnectionTest.cs" caret="2498" fromTop="40" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:RMSConnection.cs" caret="320" fromTop="9" />
+      <File id="1DA861DE-D91A-426C-A78A-06C3073AC296/d:Connection/f:RMSConnection.cs" caret="2493" fromTop="27" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="Media" priority="0" />
+      <Item value="using" priority="0" />
+      <Item value="SharedComponents" priority="1" />
+      <Item value="Extension" priority="0" />
+      <Item value="Connection" priority="0" />
+      <Item value="target" priority="1" />
+      <Item value="RMSConnection`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:SharedComponents.Connection.RMSConnection">
+      <Item value="Hosts" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@SharedComponents.Connection.RMSConnection">
+      <Item value="RMSP" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

@@ -1,0 +1,16 @@
+﻿<Window x:Class="AssortmentManagement.Windows.WindowSelectValues"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Товары" Height="350" Width="300" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*">
+            </RowDefinition>
+            <RowDefinition Height="35">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <dxe:TextEdit HorizontalAlignment="Stretch" Name="textBoxValues" VerticalAlignment="Stretch" Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" />
+        <Button Content="Применить" Height="25" HorizontalAlignment="Center" Name="buttonApply" VerticalAlignment="Center" Width="100" Grid.Row="1" IsEnabled="False" />
+    </Grid>
+</Window>
+

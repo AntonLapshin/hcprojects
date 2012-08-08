@@ -1,0 +1,20 @@
+﻿NormManagement
+
+
+winexe
+C#
+.cs
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\NormManagementMVVM\NormManagement\obj\Debug\
+NormManagementMVVM
+none
+false
+DEBUG;TRACE
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\NormManagementMVVM\NormManagement\App.xaml
+19-818028537
+4-2135448054
+70-1612097418
+30547876654
+Controls\CellControl.xaml;Controls\NormativeControl.xaml;Controls\PlusControl.xaml;Controls\RowControl.xaml;Controls\RowUnitPanelControl.xaml;View\EditParametersView.xaml;View\EditParameterValuesView.xaml;View\NormView.xaml;Windows\WindowDirectoryParameters.xaml;Windows\WindowEquipStore.xaml;Windows\WindowEquipType.xaml;Windows\WindowMain.xaml;Windows\WindowNorm.xaml;Windows\WindowEditParameters.xaml;Windows\WindowEditParameterValues.xaml;Windows\WindowParameters.xaml;Windows\WindowPartitionNorm.xaml;Windows\WindowProfile.xaml;Windows\WindowServerChoose.xaml;
+
+True
+

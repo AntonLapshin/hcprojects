@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="Oracle.DataAccess.Client" ProviderManifestToken="10.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="STORE" EntityType="Model.Store.STORE" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_EQUIP_STORE" EntityType="Model.Store.Y_NORM_EQUIP_STORE" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_EQUIP_TYPE" EntityType="Model.Store.Y_NORM_EQUIP_TYPE" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_NORMATIVE_CELL" EntityType="Model.Store.Y_NORM_NORMATIVE_CELL" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_NORMATIVE_CONTROLLER" EntityType="Model.Store.Y_NORM_NORMATIVE_CONTROLLER" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_NORMATIVE_HEAD" EntityType="Model.Store.Y_NORM_NORMATIVE_HEAD" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_NORMATIVE_ROW" EntityType="Model.Store.Y_NORM_NORMATIVE_ROW" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_PARAMETERS" EntityType="Model.Store.Y_NORM_PARAMETERS" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_PROFILE_DETAIL" EntityType="Model.Store.Y_NORM_PROFILE_DETAIL" store:Type="Tables" Schema="RMSPRD" />
+          <EntitySet Name="Y_NORM_PROFILE_HEAD" EntityType="Model.Store.Y_NORM_PROFILE_HEAD" store:Type="Tables" Schema="RMSPRD" />
+          <AssociationSet Name="STR_STR_FK" Association="Model.Store.STR_STR_FK">
+            <End Role="STORE" EntitySet="STORE" />
+            <End Role="STORE1" EntitySet="STORE" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_CELL_CONTROLLER_FK" Association="Model.Store.Y_NORM_CELL_CONTROLLER_FK">
+            <End Role="Y_NORM_NORMATIVE_CONTROLLER" EntitySet="Y_NORM_NORMATIVE_CONTROLLER" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_CELL_PARAM_FK" Association="Model.Store.Y_NORM_CELL_PARAM_FK">
+            <End Role="Y_NORM_PARAMETERS" EntitySet="Y_NORM_PARAMETERS" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_CELL_ROW_FK" Association="Model.Store.Y_NORM_CELL_ROW_FK">
+            <End Role="Y_NORM_NORMATIVE_ROW" EntitySet="Y_NORM_NORMATIVE_ROW" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_EQUIP_FK" Association="Model.Store.Y_NORM_EQUIP_FK">
+            <End Role="Y_NORM_EQUIP_TYPE" EntitySet="Y_NORM_EQUIP_TYPE" />
+            <End Role="Y_NORM_EQUIP_STORE" EntitySet="Y_NORM_EQUIP_STORE" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROF_DETAIL_PARAM_FK" Association="Model.Store.Y_NORM_PROF_DETAIL_PARAM_FK">
+            <End Role="Y_NORM_PARAMETERS" EntitySet="Y_NORM_PARAMETERS" />
+            <End Role="Y_NORM_PROFILE_DETAIL" EntitySet="Y_NORM_PROFILE_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROF_FK" Association="Model.Store.Y_NORM_PROF_FK">
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+            <End Role="Y_NORM_NORMATIVE_HEAD" EntitySet="Y_NORM_NORMATIVE_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROFILE_DET_HEAD_FK" Association="Model.Store.Y_NORM_PROFILE_DET_HEAD_FK">
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+            <End Role="Y_NORM_PROFILE_DETAIL" EntitySet="Y_NORM_PROFILE_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROFILE_EQUIP" Association="Model.Store.Y_NORM_PROFILE_EQUIP">
+            <End Role="Y_NORM_EQUIP_TYPE" EntitySet="Y_NORM_EQUIP_TYPE" />
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_ROW_HEAD_FK" Association="Model.Store.Y_NORM_ROW_HEAD_FK">
+            <End Role="Y_NORM_NORMATIVE_HEAD" EntitySet="Y_NORM_NORMATIVE_HEAD" />
+            <End Role="Y_NORM_NORMATIVE_ROW" EntitySet="Y_NORM_NORMATIVE_ROW" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_STORE_EQUIP_STORE_FK" Association="Model.Store.Y_NORM_STORE_EQUIP_STORE_FK">
+            <End Role="STORE" EntitySet="STORE" />
+            <End Role="Y_NORM_EQUIP_STORE" EntitySet="Y_NORM_EQUIP_STORE" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="STORE">
+          <Key>
+            <PropertyRef Name="STORE" />
+          </Key>
+          <Property Name="STORE" Type="number" Nullable="false" Precision="10" />
+          <Property Name="STORE_NAME" Type="varchar2" Nullable="false" MaxLength="150" />
+          <Property Name="STORE_NAME10" Type="varchar2" Nullable="false" MaxLength="10" />
+          <Property Name="STORE_NAME3" Type="varchar2" Nullable="false" MaxLength="3" />
+          <Property Name="STORE_NAME_SECONDARY" Type="varchar2" MaxLength="150" />
+          <Property Name="STORE_CLASS" Type="varchar2" Nullable="false" MaxLength="1" />
+          <Property Name="STORE_MGR_NAME" Type="varchar2" Nullable="false" MaxLength="120" />
+          <Property Name="STORE_OPEN_DATE" Type="date" Nullable="false" />
+          <Property Name="STORE_CLOSE_DATE" Type="date" />
+          <Property Name="ACQUIRED_DATE" Type="date" />
+          <Property Name="REMODEL_DATE" Type="date" />
+          <Property Name="FAX_NUMBER" Type="varchar2" MaxLength="20" />
+          <Property Name="PHONE_NUMBER" Type="varchar2" MaxLength="20" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="100" />
+          <Property Name="TOTAL_SQUARE_FT" Type="number" Precision="8" />
+          <Property Name="SELLING_SQUARE_FT" Type="number" Precision="8" />
+          <Property Name="LINEAR_DISTANCE" Type="number" Precision="8" />
+          <Property Name="VAT_REGION" Type="number" Precision="4" />
+          <Property Name="VAT_INCLUDE_IND" Type="varchar2" MaxLength="1" />
+          <Property Name="STOCKHOLDING_IND" Type="varchar2" Nullable="false" MaxLength="1" />
+          <Property Name="CHANNEL_ID" Type="number" Precision="4" />
+          <Property Name="STORE_FORMAT" Type="number" Precision="4" />
+          <Property Name="MALL_NAME" Type="varchar2" MaxLength="120" />
+          <Property Name="DISTRICT" Type="number" Nullable="false" Precision="10" />
+          <Property Name="TRANSFER_ZONE" Type="number" Precision="4" />
+          <Property Name="DEFAULT_WH" Type="number" Precision="10" />
+          <Property Name="STOP_ORDER_DAYS" Type="number" Precision="3" />
+          <Property Name="START_ORDER_DAYS" Type="number" Nullable="false" Precision="3" />
+          <Property Name="CURRENCY_CODE" Type="varchar2" Nullable="false" MaxLength="3" />
+          <Property Name="LANG" Type="number" Nullable="false" Precision="6" />
+          <Property Name="TRAN_NO_GENERATED" Type="varchar2" Nullable="false" MaxLength="6" />
+          <Property Name="INTEGRATED_POS_IND" Type="varchar2" Nullable="false" MaxLength="1" />
+          <Property Name="ORIG_CURRENCY_CODE" Type="varchar2" Nullable="false" MaxLength="3" />
+          <Property Name="DUNS_NUMBER" Type="varchar2" MaxLength="9" />
+          <Property Name="DUNS_LOC" Type="varchar2" MaxLength="4" />
+          <Property Name="SISTER_STORE" Type="number" Precision="10" />
+          <Property Name="TSF_ENTITY_ID" Type="number" Precision="10" />
+          <Property Name="ORG_UNIT_ID" Type="number" Precision="15" />
+        </EntityType>
+        <EntityType Name="Y_NORM_EQUIP_STORE">
+          <Key>
+            <PropertyRef Name="STORE" />
+            <PropertyRef Name="ID_EQUIP" />
+          </Key>
+          <Property Name="STORE" Type="number" Nullable="false" Precision="10" />
+          <Property Name="ID_EQUIP" Type="number" Nullable="false" Precision="17" />
+          <Property Name="STANDARD" Type="number" Precision="10" />
+          <Property Name="CREATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="CREATE_DATETIME" Type="date" />
+          <Property Name="LAST_UPDATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="date" />
+        </EntityType>
+        <EntityType Name="Y_NORM_EQUIP_TYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="256" />
+          <Property Name="CREATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="CREATE_DATETIME" Type="date" />
+          <Property Name="LAST_UPDATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="date" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_CELL">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_ROW" />
+            <PropertyRef Name="ID_COLUMN" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_ROW" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_COLUMN" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_PARAM" Type="number" Nullable="false" Precision="17" />
+          <Property Name="PARAM_VALUE" Type="varchar2" Nullable="false" MaxLength="512" />
+          <Property Name="CONTROLLER" Type="number" Precision="7" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_CONTROLLER">
+          <Key>
+            <PropertyRef Name="CONTROLLER" />
+          </Key>
+          <Property Name="CONTROLLER" Type="number" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_HEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_PROFILE" Type="number" Nullable="false" Precision="17" />
+          <Property Name="CREATE_DATETIME" Type="date" />
+          <Property Name="LAST_UPDATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="date" />
+          <Property Name="CREATE_ID" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_ROW">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_ROW" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_ROW" Type="number" Nullable="false" Precision="17" />
+          <Property Name="SKU" Type="number" Nullable="false" Precision="17" />
+          <Property Name="MAX_COLUMN" Type="number" Precision="5" />
+          <Property Name="DELTA" Type="number" Precision="10" Scale="2" />
+          <Property Name="SEQ_NUM" Type="number" Precision="15" />
+          <Property Name="DELTA_MIN" Type="number" Precision="10" />
+          <Property Name="DELTA_MAX" Type="number" Precision="10" />
+          <Property Name="SKU_MIN" Type="number" Precision="17" />
+          <Property Name="SKU_MAX" Type="number" Precision="17" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PARAMETERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="PARAM_TYPE" Type="varchar2" MaxLength="200" />
+          <Property Name="SOURCE" Type="varchar2" MaxLength="500" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="500" />
+          <Property Name="DESC_RU" Type="varchar2" MaxLength="500" />
+          <Property Name="UNIT_BY_PARAM_VALUE" Type="varchar2" MaxLength="500" />
+          <Property Name="CREATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="CREATE_DATETIME" Type="date" />
+          <Property Name="LAST_UPDATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="date" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PROFILE_DETAIL">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_PARAM" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="ID_PARAM" Type="number" Nullable="false" Precision="17" />
+          <Property Name="VALUE" Type="varchar2" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PROFILE_HEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="17" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="512" />
+          <Property Name="ID_EQUIP" Type="number" Precision="17" />
+          <Property Name="SECTION" Type="varchar2" MaxLength="512" />
+          <Property Name="LAST_UPDATE_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="date" />
+          <Property Name="CREATE_DATETIME" Type="date" />
+          <Property Name="CREATE_ID" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <Association Name="STR_STR_FK">
+          <End Role="STORE" Type="Model.Store.STORE" Multiplicity="0..1" />
+          <End Role="STORE1" Type="Model.Store.STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="STORE" />
+            </Principal>
+            <Dependent Role="STORE1">
+              <PropertyRef Name="SISTER_STORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_CELL_CONTROLLER_FK">
+          <End Role="Y_NORM_NORMATIVE_CONTROLLER" Type="Model.Store.Y_NORM_NORMATIVE_CONTROLLER" Multiplicity="0..1" />
+          <End Role="Y_NORM_NORMATIVE_CELL" Type="Model.Store.Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_CONTROLLER">
+              <PropertyRef Name="CONTROLLER" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="CONTROLLER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_CELL_PARAM_FK">
+          <End Role="Y_NORM_PARAMETERS" Type="Model.Store.Y_NORM_PARAMETERS" Multiplicity="1" />
+          <End Role="Y_NORM_NORMATIVE_CELL" Type="Model.Store.Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PARAMETERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="ID_PARAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_CELL_ROW_FK">
+          <End Role="Y_NORM_NORMATIVE_ROW" Type="Model.Store.Y_NORM_NORMATIVE_ROW" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_CELL" Type="Model.Store.Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_ROW">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="ID_ROW" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="ID_ROW" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_EQUIP_FK">
+          <End Role="Y_NORM_EQUIP_TYPE" Type="Model.Store.Y_NORM_EQUIP_TYPE" Multiplicity="1" />
+          <End Role="Y_NORM_EQUIP_STORE" Type="Model.Store.Y_NORM_EQUIP_STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_EQUIP_TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_EQUIP_STORE">
+              <PropertyRef Name="ID_EQUIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROF_DETAIL_PARAM_FK">
+          <End Role="Y_NORM_PARAMETERS" Type="Model.Store.Y_NORM_PARAMETERS" Multiplicity="1" />
+          <End Role="Y_NORM_PROFILE_DETAIL" Type="Model.Store.Y_NORM_PROFILE_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PARAMETERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_DETAIL">
+              <PropertyRef Name="ID_PARAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROF_FK">
+          <End Role="Y_NORM_PROFILE_HEAD" Type="Model.Store.Y_NORM_PROFILE_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_HEAD" Type="Model.Store.Y_NORM_NORMATIVE_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_HEAD">
+              <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROFILE_DET_HEAD_FK">
+          <End Role="Y_NORM_PROFILE_HEAD" Type="Model.Store.Y_NORM_PROFILE_HEAD" Multiplicity="1" />
+          <End Role="Y_NORM_PROFILE_DETAIL" Type="Model.Store.Y_NORM_PROFILE_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_DETAIL">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROFILE_EQUIP">
+          <End Role="Y_NORM_EQUIP_TYPE" Type="Model.Store.Y_NORM_EQUIP_TYPE" Multiplicity="0..1" />
+          <End Role="Y_NORM_PROFILE_HEAD" Type="Model.Store.Y_NORM_PROFILE_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_EQUIP_TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID_EQUIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_ROW_HEAD_FK">
+          <End Role="Y_NORM_NORMATIVE_HEAD" Type="Model.Store.Y_NORM_NORMATIVE_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_ROW" Type="Model.Store.Y_NORM_NORMATIVE_ROW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_ROW">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_STORE_EQUIP_STORE_FK">
+          <End Role="STORE" Type="Model.Store.STORE" Multiplicity="1" />
+          <End Role="Y_NORM_EQUIP_STORE" Type="Model.Store.Y_NORM_EQUIP_STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="STORE" />
+            </Principal>
+            <Dependent Role="Y_NORM_EQUIP_STORE">
+              <PropertyRef Name="STORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="Y_NORM_MANAGEMENT.INIT_PROFILE_ITEM_STORE_PARAM" Schema="RMSPRD" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="NormEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Y_NORM_NORMATIVE_CELL" EntityType="Model.Y_NORM_NORMATIVE_CELL" />
+          <EntitySet Name="Y_NORM_NORMATIVE_HEAD" EntityType="Model.Y_NORM_NORMATIVE_HEAD" />
+          <EntitySet Name="Y_NORM_NORMATIVE_ROW" EntityType="Model.Y_NORM_NORMATIVE_ROW" />
+          <EntitySet Name="Y_NORM_PARAMETERS" EntityType="Model.Y_NORM_PARAMETERS" />
+          <EntitySet Name="Y_NORM_PROFILE_DETAIL" EntityType="Model.Y_NORM_PROFILE_DETAIL" />
+          <EntitySet Name="Y_NORM_PROFILE_HEAD" EntityType="Model.Y_NORM_PROFILE_HEAD" />
+          <AssociationSet Name="Y_NORM_CELL_PARAM_FK" Association="Model.Y_NORM_CELL_PARAM_FK">
+            <End Role="Y_NORM_PARAMETERS" EntitySet="Y_NORM_PARAMETERS" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_CELL_ROW_FK" Association="Model.Y_NORM_CELL_ROW_FK">
+            <End Role="Y_NORM_NORMATIVE_ROW" EntitySet="Y_NORM_NORMATIVE_ROW" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROF_FK" Association="Model.Y_NORM_PROF_FK">
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+            <End Role="Y_NORM_NORMATIVE_HEAD" EntitySet="Y_NORM_NORMATIVE_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_ROW_HEAD_FK" Association="Model.Y_NORM_ROW_HEAD_FK">
+            <End Role="Y_NORM_NORMATIVE_HEAD" EntitySet="Y_NORM_NORMATIVE_HEAD" />
+            <End Role="Y_NORM_NORMATIVE_ROW" EntitySet="Y_NORM_NORMATIVE_ROW" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROF_DETAIL_PARAM_FK" Association="Model.Y_NORM_PROF_DETAIL_PARAM_FK">
+            <End Role="Y_NORM_PARAMETERS" EntitySet="Y_NORM_PARAMETERS" />
+            <End Role="Y_NORM_PROFILE_DETAIL" EntitySet="Y_NORM_PROFILE_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROFILE_DET_HEAD_FK" Association="Model.Y_NORM_PROFILE_DET_HEAD_FK">
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+            <End Role="Y_NORM_PROFILE_DETAIL" EntitySet="Y_NORM_PROFILE_DETAIL" />
+          </AssociationSet>
+          <FunctionImport Name="Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" />
+          <EntitySet Name="STORE" EntityType="Model.STORE" />
+          <EntitySet Name="Y_NORM_EQUIP_STORE" EntityType="Model.Y_NORM_EQUIP_STORE" />
+          <EntitySet Name="Y_NORM_EQUIP_TYPE" EntityType="Model.Y_NORM_EQUIP_TYPE" />
+          <AssociationSet Name="STR_STR_FK" Association="Model.STR_STR_FK">
+            <End Role="STORE" EntitySet="STORE" />
+            <End Role="STORE1" EntitySet="STORE" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_EQUIP_STORE_STORE_FK" Association="Model.Y_NORM_EQUIP_STORE_STORE_FK">
+            <End Role="STORE" EntitySet="STORE" />
+            <End Role="Y_NORM_EQUIP_STORE" EntitySet="Y_NORM_EQUIP_STORE" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_EQUIP_FK" Association="Model.Y_NORM_EQUIP_FK">
+            <End Role="Y_NORM_EQUIP_TYPE" EntitySet="Y_NORM_EQUIP_TYPE" />
+            <End Role="Y_NORM_EQUIP_STORE" EntitySet="Y_NORM_EQUIP_STORE" />
+          </AssociationSet>
+          <AssociationSet Name="Y_NORM_PROFILE_EQUIP" Association="Model.Y_NORM_PROFILE_EQUIP">
+            <End Role="Y_NORM_EQUIP_TYPE" EntitySet="Y_NORM_EQUIP_TYPE" />
+            <End Role="Y_NORM_PROFILE_HEAD" EntitySet="Y_NORM_PROFILE_HEAD" />
+          </AssociationSet>
+          <EntitySet Name="Y_NORM_NORMATIVE_CONTROLLER" EntityType="Model.Y_NORM_NORMATIVE_CONTROLLER" />
+          <AssociationSet Name="Y_NORM_CELL_CONTROLLER_FK" Association="Model.Y_NORM_CELL_CONTROLLER_FK">
+            <End Role="Y_NORM_NORMATIVE_CONTROLLER" EntitySet="Y_NORM_NORMATIVE_CONTROLLER" />
+            <End Role="Y_NORM_NORMATIVE_CELL" EntitySet="Y_NORM_NORMATIVE_CELL" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Y_NORM_NORMATIVE_CELL">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_ROW" />
+            <PropertyRef Name="ID_COLUMN" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_ROW" Type="Int64" Nullable="false" />
+          <Property Name="ID_COLUMN" Type="Int64" Nullable="false" />
+          <Property Name="ID_PARAM" Type="Int64" Nullable="false" />
+          <Property Name="PARAM_VALUE" Type="String" Nullable="false" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="CONTROLLER" Type="Int32" />
+          <NavigationProperty Name="Y_NORM_PARAMETERS" Relationship="Model.Y_NORM_CELL_PARAM_FK" FromRole="Y_NORM_NORMATIVE_CELL" ToRole="Y_NORM_PARAMETERS" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_ROW" Relationship="Model.Y_NORM_CELL_ROW_FK" FromRole="Y_NORM_NORMATIVE_CELL" ToRole="Y_NORM_NORMATIVE_ROW" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_CONTROLLER" Relationship="Model.Y_NORM_CELL_CONTROLLER_FK" FromRole="Y_NORM_NORMATIVE_CELL" ToRole="Y_NORM_NORMATIVE_CONTROLLER" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_HEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_PROFILE" Type="Int64" Nullable="false" />
+          <Property Name="CREATE_DATETIME" Type="DateTime" />
+          <Property Name="LAST_UPDATE_ID" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="DateTime" />
+          <NavigationProperty Name="Y_NORM_PROFILE_HEAD" Relationship="Model.Y_NORM_PROF_FK" FromRole="Y_NORM_NORMATIVE_HEAD" ToRole="Y_NORM_PROFILE_HEAD" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_ROW" Relationship="Model.Y_NORM_ROW_HEAD_FK" FromRole="Y_NORM_NORMATIVE_HEAD" ToRole="Y_NORM_NORMATIVE_ROW" />
+          <Property Type="String" Name="CREATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Y_NORM_NORMATIVE_ROW">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_ROW" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_ROW" Type="Int64" Nullable="false" />
+          <Property Name="SKU" Type="Int64" Nullable="false" />
+          <Property Name="MAX_COLUMN" Type="Int16" />
+          <Property Name="DELTA" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SEQ_NUM" Type="Int64" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_CELL" Relationship="Model.Y_NORM_CELL_ROW_FK" FromRole="Y_NORM_NORMATIVE_ROW" ToRole="Y_NORM_NORMATIVE_CELL" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_HEAD" Relationship="Model.Y_NORM_ROW_HEAD_FK" FromRole="Y_NORM_NORMATIVE_ROW" ToRole="Y_NORM_NORMATIVE_HEAD" />
+          <Property Type="Int32" Name="DELTA_MIN" />
+          <Property Type="Int32" Name="DELTA_MAX" />
+          <Property Type="Int64" Name="SKU_MIN" />
+          <Property Type="Int64" Name="SKU_MAX" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PARAMETERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="PARAM_TYPE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="SOURCE" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="DESC_RU" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="UNIT_BY_PARAM_VALUE" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_CELL" Relationship="Model.Y_NORM_CELL_PARAM_FK" FromRole="Y_NORM_PARAMETERS" ToRole="Y_NORM_NORMATIVE_CELL" />
+          <NavigationProperty Name="Y_NORM_PROFILE_DETAIL" Relationship="Model.Y_NORM_PROF_DETAIL_PARAM_FK" FromRole="Y_NORM_PARAMETERS" ToRole="Y_NORM_PROFILE_DETAIL" />
+          <Property Type="String" Name="CREATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_DATETIME" />
+          <Property Type="String" Name="LAST_UPDATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LAST_UPDATE_DATETIME" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PROFILE_DETAIL">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ID_PARAM" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_PARAM" Type="Int64" Nullable="false" />
+          <Property Name="VALUE" Type="String" MaxLength="1024" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Y_NORM_PARAMETERS" Relationship="Model.Y_NORM_PROF_DETAIL_PARAM_FK" FromRole="Y_NORM_PROFILE_DETAIL" ToRole="Y_NORM_PARAMETERS" />
+          <NavigationProperty Name="Y_NORM_PROFILE_HEAD" Relationship="Model.Y_NORM_PROFILE_DET_HEAD_FK" FromRole="Y_NORM_PROFILE_DETAIL" ToRole="Y_NORM_PROFILE_HEAD" />
+        </EntityType>
+        <EntityType Name="Y_NORM_PROFILE_HEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="ID_EQUIP" Type="Int64" />
+          <Property Name="SECTION" Type="String" MaxLength="512" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_UPDATE_ID" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="LAST_UPDATE_DATETIME" Type="DateTime" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_HEAD" Relationship="Model.Y_NORM_PROF_FK" FromRole="Y_NORM_PROFILE_HEAD" ToRole="Y_NORM_NORMATIVE_HEAD" />
+          <NavigationProperty Name="Y_NORM_PROFILE_DETAIL" Relationship="Model.Y_NORM_PROFILE_DET_HEAD_FK" FromRole="Y_NORM_PROFILE_HEAD" ToRole="Y_NORM_PROFILE_DETAIL" />
+          <NavigationProperty Name="Y_NORM_EQUIP_TYPE" Relationship="Model.Y_NORM_PROFILE_EQUIP" FromRole="Y_NORM_PROFILE_HEAD" ToRole="Y_NORM_EQUIP_TYPE" />
+          <Property Type="DateTime" Name="CREATE_DATETIME" />
+          <Property Type="String" Name="CREATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="Y_NORM_CELL_PARAM_FK">
+          <End Role="Y_NORM_PARAMETERS" Type="Model.Y_NORM_PARAMETERS" Multiplicity="1" />
+          <End Role="Y_NORM_NORMATIVE_CELL" Type="Model.Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PARAMETERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="ID_PARAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_CELL_ROW_FK">
+          <End Role="Y_NORM_NORMATIVE_ROW" Type="Model.Y_NORM_NORMATIVE_ROW" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_CELL" Type="Model.Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_ROW">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="ID_ROW" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="ID" />
+              <PropertyRef Name="ID_ROW" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROF_FK">
+          <End Role="Y_NORM_PROFILE_HEAD" Type="Model.Y_NORM_PROFILE_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_HEAD" Type="Model.Y_NORM_NORMATIVE_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_HEAD">
+              <PropertyRef Name="ID_PROFILE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_ROW_HEAD_FK">
+          <End Role="Y_NORM_NORMATIVE_HEAD" Type="Model.Y_NORM_NORMATIVE_HEAD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Y_NORM_NORMATIVE_ROW" Type="Model.Y_NORM_NORMATIVE_ROW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_ROW">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROF_DETAIL_PARAM_FK">
+          <End Role="Y_NORM_PARAMETERS" Type="Model.Y_NORM_PARAMETERS" Multiplicity="1" />
+          <End Role="Y_NORM_PROFILE_DETAIL" Type="Model.Y_NORM_PROFILE_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PARAMETERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_DETAIL">
+              <PropertyRef Name="ID_PARAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROFILE_DET_HEAD_FK">
+          <End Role="Y_NORM_PROFILE_HEAD" Type="Model.Y_NORM_PROFILE_HEAD" Multiplicity="1" />
+          <End Role="Y_NORM_PROFILE_DETAIL" Type="Model.Y_NORM_PROFILE_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_DETAIL">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Y_NORM_MANAGEMENT_GET_PARAMETER_VALUES_Result">
+          <Property Type="String" Name="VALUE" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="STORE">
+          <Key>
+            <PropertyRef Name="STORE1" />
+          </Key>
+          <Property Type="Int32" Name="STORE1" Nullable="false" />
+          <Property Type="String" Name="STORE_NAME" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STORE_NAME10" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STORE_NAME3" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STORE_NAME_SECONDARY" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STORE_CLASS" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STORE_MGR_NAME" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="STORE_OPEN_DATE" Nullable="false" />
+          <Property Type="DateTime" Name="STORE_CLOSE_DATE" />
+          <Property Type="DateTime" Name="ACQUIRED_DATE" />
+          <Property Type="DateTime" Name="REMODEL_DATE" />
+          <Property Type="String" Name="FAX_NUMBER" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PHONE_NUMBER" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMAIL" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TOTAL_SQUARE_FT" />
+          <Property Type="Int32" Name="SELLING_SQUARE_FT" />
+          <Property Type="Int32" Name="LINEAR_DISTANCE" />
+          <Property Type="Int16" Name="VAT_REGION" />
+          <Property Type="String" Name="VAT_INCLUDE_IND" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="STOCKHOLDING_IND" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="CHANNEL_ID" />
+          <Property Type="Int16" Name="STORE_FORMAT" />
+          <Property Type="String" Name="MALL_NAME" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DISTRICT" Nullable="false" />
+          <Property Type="Int16" Name="TRANSFER_ZONE" />
+          <Property Type="Int32" Name="DEFAULT_WH" />
+          <Property Type="Int16" Name="STOP_ORDER_DAYS" />
+          <Property Type="Int16" Name="START_ORDER_DAYS" Nullable="false" />
+          <Property Type="String" Name="CURRENCY_CODE" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="LANG" Nullable="false" />
+          <Property Type="String" Name="TRAN_NO_GENERATED" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="INTEGRATED_POS_IND" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ORIG_CURRENCY_CODE" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DUNS_NUMBER" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DUNS_LOC" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="SISTER_STORE" />
+          <Property Type="Int32" Name="TSF_ENTITY_ID" />
+          <Property Type="Int64" Name="ORG_UNIT_ID" />
+          <NavigationProperty Name="STORE11" Relationship="Model.STR_STR_FK" FromRole="STORE" ToRole="STORE1" />
+          <NavigationProperty Name="STORE2" Relationship="Model.STR_STR_FK" FromRole="STORE1" ToRole="STORE" />
+          <NavigationProperty Name="Y_NORM_EQUIP_STORE" Relationship="Model.Y_NORM_EQUIP_STORE_STORE_FK" FromRole="STORE" ToRole="Y_NORM_EQUIP_STORE" />
+        </EntityType>
+        <EntityType Name="Y_NORM_EQUIP_STORE">
+          <Key>
+            <PropertyRef Name="STORE" />
+            <PropertyRef Name="ID_EQUIP" />
+          </Key>
+          <Property Type="Int32" Name="STORE" Nullable="false" />
+          <Property Type="Int64" Name="ID_EQUIP" Nullable="false" />
+          <Property Type="Int32" Name="STANDARD" />
+          <NavigationProperty Name="STORE1" Relationship="Model.Y_NORM_EQUIP_STORE_STORE_FK" FromRole="Y_NORM_EQUIP_STORE" ToRole="STORE" />
+          <NavigationProperty Name="Y_NORM_EQUIP_TYPE" Relationship="Model.Y_NORM_EQUIP_FK" FromRole="Y_NORM_EQUIP_STORE" ToRole="Y_NORM_EQUIP_TYPE" />
+          <Property Type="String" Name="CREATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_DATETIME" />
+          <Property Type="String" Name="LAST_UPDATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LAST_UPDATE_DATETIME" />
+        </EntityType>
+        <EntityType Name="Y_NORM_EQUIP_TYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Y_NORM_EQUIP_STORE" Relationship="Model.Y_NORM_EQUIP_FK" FromRole="Y_NORM_EQUIP_TYPE" ToRole="Y_NORM_EQUIP_STORE" />
+          <NavigationProperty Name="Y_NORM_PROFILE_HEAD" Relationship="Model.Y_NORM_PROFILE_EQUIP" FromRole="Y_NORM_EQUIP_TYPE" ToRole="Y_NORM_PROFILE_HEAD" />
+          <Property Type="String" Name="CREATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATE_DATETIME" />
+          <Property Type="String" Name="LAST_UPDATE_ID" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LAST_UPDATE_DATETIME" />
+        </EntityType>
+        <Association Name="STR_STR_FK">
+          <End Type="Model.STORE" Role="STORE" Multiplicity="0..1" />
+          <End Type="Model.STORE" Role="STORE1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="STORE1" />
+            </Principal>
+            <Dependent Role="STORE1">
+              <PropertyRef Name="SISTER_STORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_EQUIP_STORE_STORE_FK">
+          <End Type="Model.STORE" Role="STORE" Multiplicity="1" />
+          <End Type="Model.Y_NORM_EQUIP_STORE" Role="Y_NORM_EQUIP_STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="STORE1" />
+            </Principal>
+            <Dependent Role="Y_NORM_EQUIP_STORE">
+              <PropertyRef Name="STORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_EQUIP_FK">
+          <End Type="Model.Y_NORM_EQUIP_TYPE" Role="Y_NORM_EQUIP_TYPE" Multiplicity="1" />
+          <End Type="Model.Y_NORM_EQUIP_STORE" Role="Y_NORM_EQUIP_STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_EQUIP_TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_EQUIP_STORE">
+              <PropertyRef Name="ID_EQUIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Y_NORM_PROFILE_EQUIP">
+          <End Type="Model.Y_NORM_EQUIP_TYPE" Role="Y_NORM_EQUIP_TYPE" Multiplicity="0..1" />
+          <End Type="Model.Y_NORM_PROFILE_HEAD" Role="Y_NORM_PROFILE_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_EQUIP_TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Y_NORM_PROFILE_HEAD">
+              <PropertyRef Name="ID_EQUIP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Y_NORM_NORMATIVE_CONTROLLER">
+          <Key>
+            <PropertyRef Name="CONTROLLER" />
+          </Key>
+          <Property Type="Int32" Name="CONTROLLER" Nullable="false" />
+          <NavigationProperty Name="Y_NORM_NORMATIVE_CELL" Relationship="Model.Y_NORM_CELL_CONTROLLER_FK" FromRole="Y_NORM_NORMATIVE_CONTROLLER" ToRole="Y_NORM_NORMATIVE_CELL" />
+        </EntityType>
+        <Association Name="Y_NORM_CELL_CONTROLLER_FK">
+          <End Type="Model.Y_NORM_NORMATIVE_CONTROLLER" Role="Y_NORM_NORMATIVE_CONTROLLER" Multiplicity="0..1" />
+          <End Type="Model.Y_NORM_NORMATIVE_CELL" Role="Y_NORM_NORMATIVE_CELL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Y_NORM_NORMATIVE_CONTROLLER">
+              <PropertyRef Name="CONTROLLER" />
+            </Principal>
+            <Dependent Role="Y_NORM_NORMATIVE_CELL">
+              <PropertyRef Name="CONTROLLER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="NormEntities">
+          <EntitySetMapping Name="Y_NORM_NORMATIVE_CELL"><EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_CELL"><MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_CELL">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ID_ROW" ColumnName="ID_ROW" />
+            <ScalarProperty Name="ID_COLUMN" ColumnName="ID_COLUMN" />
+            <ScalarProperty Name="ID_PARAM" ColumnName="ID_PARAM" />
+            <ScalarProperty Name="PARAM_VALUE" ColumnName="PARAM_VALUE" />
+            <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_NORMATIVE_HEAD"><EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_HEAD"><MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_HEAD">
+            <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ID_PROFILE" ColumnName="ID_PROFILE" />
+            <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+            <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+            <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_NORMATIVE_ROW"><EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_ROW"><MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_ROW">
+            <ScalarProperty Name="SKU_MAX" ColumnName="SKU_MAX" />
+                <ScalarProperty Name="SKU_MIN" ColumnName="SKU_MIN" />
+                <ScalarProperty Name="DELTA_MAX" ColumnName="DELTA_MAX" />
+                <ScalarProperty Name="DELTA_MIN" ColumnName="DELTA_MIN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ID_ROW" ColumnName="ID_ROW" />
+            <ScalarProperty Name="SKU" ColumnName="SKU" />
+            <ScalarProperty Name="MAX_COLUMN" ColumnName="MAX_COLUMN" />
+            <ScalarProperty Name="DELTA" ColumnName="DELTA" />
+            <ScalarProperty Name="SEQ_NUM" ColumnName="SEQ_NUM" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_PARAMETERS"><EntityTypeMapping TypeName="Model.Y_NORM_PARAMETERS"><MappingFragment StoreEntitySet="Y_NORM_PARAMETERS">
+            <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+                <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+                <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+                <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="PARAM_TYPE" ColumnName="PARAM_TYPE" />
+            <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+            <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+            <ScalarProperty Name="DESC_RU" ColumnName="DESC_RU" />
+            <ScalarProperty Name="UNIT_BY_PARAM_VALUE" ColumnName="UNIT_BY_PARAM_VALUE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_PROFILE_DETAIL"><EntityTypeMapping TypeName="Model.Y_NORM_PROFILE_DETAIL"><MappingFragment StoreEntitySet="Y_NORM_PROFILE_DETAIL">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ID_PARAM" ColumnName="ID_PARAM" />
+            <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_PROFILE_HEAD"><EntityTypeMapping TypeName="Model.Y_NORM_PROFILE_HEAD"><MappingFragment StoreEntitySet="Y_NORM_PROFILE_HEAD">
+            <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+                <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+            <ScalarProperty Name="ID_EQUIP" ColumnName="ID_EQUIP" />
+            <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+            <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+            <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" FunctionName="Model.Store.Y_NORM_MANAGEMENT_INIT_PROFILE_ITEM_STORE_PARAM" />
+          <EntitySetMapping Name="STORE">
+            <EntityTypeMapping TypeName="Model.STORE">
+              <MappingFragment StoreEntitySet="STORE">
+                <ScalarProperty Name="ORG_UNIT_ID" ColumnName="ORG_UNIT_ID" />
+                <ScalarProperty Name="TSF_ENTITY_ID" ColumnName="TSF_ENTITY_ID" />
+                <ScalarProperty Name="SISTER_STORE" ColumnName="SISTER_STORE" />
+                <ScalarProperty Name="DUNS_LOC" ColumnName="DUNS_LOC" />
+                <ScalarProperty Name="DUNS_NUMBER" ColumnName="DUNS_NUMBER" />
+                <ScalarProperty Name="ORIG_CURRENCY_CODE" ColumnName="ORIG_CURRENCY_CODE" />
+                <ScalarProperty Name="INTEGRATED_POS_IND" ColumnName="INTEGRATED_POS_IND" />
+                <ScalarProperty Name="TRAN_NO_GENERATED" ColumnName="TRAN_NO_GENERATED" />
+                <ScalarProperty Name="LANG" ColumnName="LANG" />
+                <ScalarProperty Name="CURRENCY_CODE" ColumnName="CURRENCY_CODE" />
+                <ScalarProperty Name="START_ORDER_DAYS" ColumnName="START_ORDER_DAYS" />
+                <ScalarProperty Name="STOP_ORDER_DAYS" ColumnName="STOP_ORDER_DAYS" />
+                <ScalarProperty Name="DEFAULT_WH" ColumnName="DEFAULT_WH" />
+                <ScalarProperty Name="TRANSFER_ZONE" ColumnName="TRANSFER_ZONE" />
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="MALL_NAME" ColumnName="MALL_NAME" />
+                <ScalarProperty Name="STORE_FORMAT" ColumnName="STORE_FORMAT" />
+                <ScalarProperty Name="CHANNEL_ID" ColumnName="CHANNEL_ID" />
+                <ScalarProperty Name="STOCKHOLDING_IND" ColumnName="STOCKHOLDING_IND" />
+                <ScalarProperty Name="VAT_INCLUDE_IND" ColumnName="VAT_INCLUDE_IND" />
+                <ScalarProperty Name="VAT_REGION" ColumnName="VAT_REGION" />
+                <ScalarProperty Name="LINEAR_DISTANCE" ColumnName="LINEAR_DISTANCE" />
+                <ScalarProperty Name="SELLING_SQUARE_FT" ColumnName="SELLING_SQUARE_FT" />
+                <ScalarProperty Name="TOTAL_SQUARE_FT" ColumnName="TOTAL_SQUARE_FT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE_NUMBER" ColumnName="PHONE_NUMBER" />
+                <ScalarProperty Name="FAX_NUMBER" ColumnName="FAX_NUMBER" />
+                <ScalarProperty Name="REMODEL_DATE" ColumnName="REMODEL_DATE" />
+                <ScalarProperty Name="ACQUIRED_DATE" ColumnName="ACQUIRED_DATE" />
+                <ScalarProperty Name="STORE_CLOSE_DATE" ColumnName="STORE_CLOSE_DATE" />
+                <ScalarProperty Name="STORE_OPEN_DATE" ColumnName="STORE_OPEN_DATE" />
+                <ScalarProperty Name="STORE_MGR_NAME" ColumnName="STORE_MGR_NAME" />
+                <ScalarProperty Name="STORE_CLASS" ColumnName="STORE_CLASS" />
+                <ScalarProperty Name="STORE_NAME_SECONDARY" ColumnName="STORE_NAME_SECONDARY" />
+                <ScalarProperty Name="STORE_NAME3" ColumnName="STORE_NAME3" />
+                <ScalarProperty Name="STORE_NAME10" ColumnName="STORE_NAME10" />
+                <ScalarProperty Name="STORE_NAME" ColumnName="STORE_NAME" />
+                <ScalarProperty Name="STORE1" ColumnName="STORE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_EQUIP_STORE">
+            <EntityTypeMapping TypeName="Model.Y_NORM_EQUIP_STORE">
+              <MappingFragment StoreEntitySet="Y_NORM_EQUIP_STORE">
+                <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+                <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+                <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+                <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+                <ScalarProperty Name="STANDARD" ColumnName="STANDARD" />
+                <ScalarProperty Name="ID_EQUIP" ColumnName="ID_EQUIP" />
+                <ScalarProperty Name="STORE" ColumnName="STORE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_EQUIP_TYPE">
+            <EntityTypeMapping TypeName="Model.Y_NORM_EQUIP_TYPE">
+              <MappingFragment StoreEntitySet="Y_NORM_EQUIP_TYPE">
+                <ScalarProperty Name="LAST_UPDATE_DATETIME" ColumnName="LAST_UPDATE_DATETIME" />
+                <ScalarProperty Name="LAST_UPDATE_ID" ColumnName="LAST_UPDATE_ID" />
+                <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+                <ScalarProperty Name="CREATE_ID" ColumnName="CREATE_ID" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Y_NORM_NORMATIVE_CONTROLLER">
+            <EntityTypeMapping TypeName="Model.Y_NORM_NORMATIVE_CONTROLLER">
+              <MappingFragment StoreEntitySet="Y_NORM_NORMATIVE_CONTROLLER">
+                <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="NormativeModel">
+        <EntityTypeShape EntityType="Model.Y_NORM_NORMATIVE_CELL" Width="2.25" PointX="7.5" PointY="3.75" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Y_NORM_NORMATIVE_HEAD" Width="1.5" PointX="3" PointY="3.875" Height="2.0853483072916661" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Y_NORM_NORMATIVE_ROW" Width="1.5" PointX="5.25" PointY="3.75" Height="2.2496956380208339" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Y_NORM_PARAMETERS" Width="1.5" PointX="5.25" PointY="0.75" Height="2.2496956380208326" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Y_NORM_PROFILE_DETAIL" Width="1.5" PointX="6" PointY="6.875" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Y_NORM_PROFILE_HEAD" Width="1.5" PointX="0.75" PointY="5" Height="2.7427376302083317" IsExpanded="true" />
+        <AssociationConnector Association="Model.Y_NORM_CELL_PARAM_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.20354248046875" />
+          <ConnectorPoint PointX="8.847655625" PointY="2.20354248046875" />
+          <ConnectorPoint PointX="8.847655625" PointY="3.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_CELL_ROW_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="4.957021484375" />
+          <ConnectorPoint PointX="7.0416691666666669" PointY="4.9570214843749989" />
+          <ConnectorPoint PointX="7.2083358333333329" PointY="4.957021484375" />
+          <ConnectorPoint PointX="7.5" PointY="4.957021484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_PROF_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.4801741536458328" />
+          <ConnectorPoint PointX="3" PointY="5.4801741536458328" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_ROW_HEAD_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.9176741536458328" />
+          <ConnectorPoint PointX="5.25" PointY="4.9176741536458328" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_PROF_DETAIL_PARAM_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.9615662207031255" />
+          <ConnectorPoint PointX="7.1250025" PointY="2.9615662207031255" />
+          <ConnectorPoint PointX="7.1250025" PointY="6.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_PROFILE_DET_HEAD_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.3088688151041659" />
+          <ConnectorPoint PointX="6" PointY="7.3088688151041659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.STORE" Width="1.5" PointX="2.625" PointY="9.25" Height="7.6731575520833317" />
+        <EntityTypeShape EntityType="Model.Y_NORM_EQUIP_STORE" Width="1.5" PointX="4.875" PointY="10.5" Height="1.7566536458333353" />
+        <EntityTypeShape EntityType="Model.Y_NORM_EQUIP_TYPE" Width="1.5" PointX="0.5" PointY="8.375" Height="1.5923063151041674" />
+        <AssociationConnector Association="Model.STR_STR_FK" >
+          <ConnectorPoint PointX="3.1569230769230767" PointY="16.923157552083332" />
+          <ConnectorPoint PointX="3.1569230769230767" PointY="17.173157552083332" />
+          <ConnectorPoint PointX="3.6034615384615383" PointY="17.173157552083332" />
+          <ConnectorPoint PointX="3.6034615384615383" PointY="16.923157552083332" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_EQUIP_STORE_STORE_FK" >
+          <ConnectorPoint PointX="4.125" PointY="11.378326822916668" />
+          <ConnectorPoint PointX="4.875" PointY="11.378326822916668" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_EQUIP_FK" >
+          <ConnectorPoint PointX="2" PointY="8.9408268229166659" />
+          <ConnectorPoint PointX="5.40625" PointY="8.9408268229166659" />
+          <ConnectorPoint PointX="5.40625" PointY="10.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.Y_NORM_PROFILE_EQUIP" >
+          <ConnectorPoint PointX="1.375" PointY="8.375" />
+          <ConnectorPoint PointX="1.375" PointY="7.7427376302083317" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Y_NORM_NORMATIVE_CONTROLLER" Width="1.5" PointX="0.75" PointY="0.875" Height="1.2636116536458319" />
+        <AssociationConnector Association="Model.Y_NORM_CELL_CONTROLLER_FK" >
+          <ConnectorPoint PointX="2.25" PointY="1.5068058268229159" />
+          <ConnectorPoint PointX="5.1875" PointY="1.5068058268229159" />
+          <ConnectorPoint PointX="5.1875" PointY="3.6875" />
+          <ConnectorPoint PointX="7.0416691666666669" PointY="3.6874999999999996" />
+          <ConnectorPoint PointX="7.2083358333333329" PointY="3.6875" />
+          <ConnectorPoint PointX="8.1425758125" PointY="3.6875" />
+          <ConnectorPoint PointX="8.1425758125" PointY="3.75" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

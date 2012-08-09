@@ -1,0 +1,1329 @@
+CREATE OR REPLACE PACKAGE y_assortment_completion
+/* Formatted on 31.10.2011 15:55:07 (QP5 v5.126) */
+is
+    procedure prepare_upload (i_42region        in     boolean,
+                              o_error_message   in out varchar2);
+
+    function assortment_set (o_error_message in out varchar2)
+        return boolean;
+
+    function assortment_set_manual (o_error_message in out varchar2)
+        return boolean;
+
+    function assortment_set_doc (i_id_doc          in     number,
+                                 o_error_message   in out varchar2)
+        return boolean;
+
+    function assortment_set_operative (o_error_message in out varchar2)
+        return boolean;
+
+    function fix_primary_supplier (o_error_message in out varchar2)
+        return boolean;
+end;
+/
+CREATE OR REPLACE PACKAGE BODY y_assortment_completion
+/* Formatted on 14-дек-2011 13:46:51 (QP5 v5.126) */
+is
+    function second_grade_include (o_error_message in out varchar2)
+        return boolean
+    is
+    begin
+        insert into y_assortment_doc_detail
+              select   u.id_doc,
+                       -1,
+                       uda.uda_text,
+                       u.loc,
+                       null,
+                       40959,
+                       null,
+                       3,
+                       null,
+                       'S',
+                       null,
+                       null,
+                       null
+                from           y_assortment_upload u
+                           join
+                               item_master im
+                           on im.item = u.item
+                       join
+                           uda_item_ff uda
+                       on uda.uda_id = 1301 and uda.item = u.item
+               where   im.dept = 335 and not exists(select 1 from y_assortment_upload yua where yua.item=uda.uda_text and u.loc=yua.loc) --<Metelkov Alexandeer 22.12.2012>
+            group by   u.id_doc, uda.uda_text, u.loc;
+
+        insert into y_assortment_upload
+              select   uda.uda_text, u.loc, MAX(u.id_doc)
+                from           y_assortment_upload u
+                           join
+                               item_master im
+                           on im.item = u.item
+                       join
+                           uda_item_ff uda
+                       on uda.uda_id = 1301 and uda.item = u.item
+               where   im.dept = 335 and not exists(select 1 from y_assortment_upload yua where yua.item=uda.uda_text and u.loc=yua.loc) --<Metelkov Alexandeer 22.12.2012>
+            group by   uda.uda_text, u.loc;
+
+        return true;
+    exception
+        when others
+        then
+            o_error_message := 'second_grade_include exception: ' || SQLERRM;
+            return false;
+    end;
+
+    procedure prepare_upload (i_42region        in     boolean,
+                              o_error_message   in out varchar2)
+    is
+    begin
+        delete from   y_assortment_upload;
+
+        if i_42region = true
+        then
+            insert into y_assortment_upload
+                select   r.*
+                  from       y_assortment_ready r
+                         join
+                             v_base_business_system s
+                         on s.location = r.loc
+                 where   s.chain = 42;
+        else
+            insert into y_assortment_upload
+                select   r.*
+                  from       y_assortment_ready r
+                         join
+                             v_base_business_system s
+                         on s.location = r.loc
+                 where   s.chain in (54, 55);
+        end if;
+    exception
+        when others
+        then
+            o_error_message := 'prepare error: ' || SQLERRM;
+    end;
+
+    function fix_primary_supplier (o_error_message in out varchar2)
+        return boolean
+    is
+    begin
+        for r
+        in (select   ass.item,
+                     ass.loc,
+                     doc_detail.supplier_new,
+                     il.primary_supp,
+                     il.primary_cntry,
+                     il.loc_type,
+                     il.local_item_desc,
+                     il.local_short_desc,
+                     il.primary_variant,
+                     il.unit_retail,
+                     il.ti,
+                     il.hi,
+                     il.store_ord_mult,
+                     il.daily_waste_pct,
+                     il.taxable_ind,
+                     il.meas_of_each,
+                     il.meas_of_price,
+                     il.uom_of_price,
+                     il.selling_unit_retail,
+                     il.selling_uom,
+                     il.primary_cost_pack,
+                     il.receive_as_type,
+                     il.source_method,
+                     il.source_wh,
+                     im.item_level,
+                     im.tran_level,
+                     act.status
+              from                   y_assortment_upload ass
+                                 join
+                                     y_assortment_doc_detail doc_detail
+                                 on     doc_detail.id = ass.id_doc
+                                    and doc_detail.item = ass.item
+                                    and doc_detail.loc = ass.loc
+                             join
+                                 item_loc il
+                             on il.item = ass.item and il.loc = ass.loc
+                         join
+                             item_master im
+                         on im.item = ass.item
+                     left join
+                         y_assortment_action act
+                     on act.id = doc_detail.action
+             where   doc_detail.supplier_new <> il.primary_supp) --and rownum < 1001)
+        loop
+            if z_generate_item_supp (o_error_message,
+                                     r.item,
+                                     r.supplier_new,
+                                     r.primary_cntry) = false
+            then
+                o_error_message :=
+                       'Error during NEW_ITEM_LOC. '
+                    || r.item
+                    || ' '
+                    || r.loc
+                    || ' Message: '
+                    || o_error_message;
+                return false;
+            end if;
+
+            if item_loc_sql.update_item_loc (o_error_message,
+                                             r.item,
+                                             r.status,
+                                             r.item_level,
+                                             r.tran_level,
+                                             r.loc,
+                                             r.loc_type,
+                                             r.supplier_new,
+                                             r.primary_cntry,
+                                             r.status,
+                                             r.local_item_desc,
+                                             r.local_short_desc,
+                                             r.primary_variant,
+                                             r.unit_retail,
+                                             r.ti,
+                                             r.hi,
+                                             r.store_ord_mult,
+                                             r.daily_waste_pct,
+                                             r.taxable_ind,
+                                             r.meas_of_each,
+                                             r.meas_of_price,
+                                             r.uom_of_price,
+                                             r.selling_unit_retail,
+                                             r.selling_uom,
+                                             r.primary_cost_pack,
+                                             'Y',        --c.process_children,
+                                             r.receive_as_type,
+                                             null,
+                                             null,
+                                             /* <21-Feb-2011, Alexander A. Andreev> */
+                                             /* http://servicedesk.hc/browse/HELPDESK-19816 */
+                                             r.source_method,
+                                             r.source_wh) = false
+            then
+                return false;
+            end if;
+        end loop;
+
+        return true;
+    exception
+        when others
+        then
+            o_error_message :=
+                sql_lib.create_msg ('package_error: ',
+                                    SQLERRM,
+                                    ' in fix_primary_supplier, ',
+                                    TO_CHAR (SQLCODE));
+            return false;
+    end;
+
+    function assortment_set (o_error_message in out varchar2)
+        return boolean
+    is
+        v_tomorrow           date := get_vdate + 1;
+        c_tran_type          constant number (2) := 25;
+        l_result             boolean;
+        l_sourcemethod_new   item_loc.source_method%type;
+        l_sourcewh           item_loc.source_wh%type;
+    /*
+            l_temp               number;
+            l_seq                number;
+
+            cursor c_rows_exists
+            is
+                select   1 from y_assortment_total;
+    */
+    begin
+        /*
+                open c_rows_exists;
+
+                fetch c_rows_exists into l_temp;
+
+                if c_rows_exists%notfound
+                then
+                    insert into y_assortment_completion_log
+                      values   (y_assort_completion_log_seq.NEXTVAL,
+                                SYSDATE,
+                                SYSDATE,
+                                'N',
+                                'no rows in y_assortment_total');
+
+                    close c_rows_exists;
+
+                    return false;
+                end if;
+
+                close c_rows_exists;
+
+                select   y_assort_completion_log_seq.NEXTVAL into l_seq from DUAL;
+
+                insert into y_assortment_completion_log
+                  values   (l_seq,
+                            SYSDATE,
+                            null,
+                            null,
+                            null);
+        */
+
+        if second_grade_include (o_error_message) = false
+        then
+            return false;
+        end if;
+
+        for r
+        in (select   ass.id_doc,
+                     ass.item,
+                     ass.loc,
+                     il.loc_type,
+                     act.status status_new,
+                     doc_detail.supplier_new,
+                     doc_detail.sourcemethod_new,
+                     doc_detail.sourcewh_new,
+                     doc_detail.action,
+                     il.status status_old
+              from                   y_assortment_upload ass
+                                 join
+                                     y_assortment_doc_head doc_head
+                                 on doc_head.id = ass.id_doc
+                             join
+                                 y_assortment_doc_detail doc_detail
+                             on     doc_detail.id = doc_head.id
+                                and doc_detail.item = ass.item
+                                and doc_detail.loc = ass.loc
+                         left join
+                             item_loc il
+                         on il.item = doc_detail.item
+                            and il.loc = doc_detail.loc
+                     left join
+                         y_assortment_action act
+                     on act.id = doc_detail.action
+             where   act.status is not null and act.status <> 'U')
+        loop
+            /*
+                        if r.action in (1, 2)
+                        then
+                            l_sourcemethod_new := r.sourcemethod_new;
+                        elsif r.action = -1
+                        then
+                            l_sourcemethod_new := 'S';
+                        elsif r.action = 4
+                        then
+                            l_sourcemethod_new := 'W';
+                        end if;
+            */
+            if r.status_old is null           -- record not exists in item_loc
+            then
+                l_result :=
+                    new_item_loc (o_error_message,
+                                  r.item,
+                                  r.loc,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  r.status_new,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  v_tomorrow,
+                                  null,
+                                  i_source_method   => r.sourcemethod_new,
+                                  i_source_wh       => r.sourcewh_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                           'Error during NEW_ITEM_LOC. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+            else                                  -- record exists in item_loc
+                l_result :=
+                    item_loc_sql.status_change_valid (o_error_message,
+                                                      r.item,
+                                                      r.loc,
+                                                      r.loc_type,
+                                                      r.status_old, --old status
+                                                      r.status_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                        'Error during item_loc_sql.status_change_valid. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+
+                if r.loc_type = 'S'
+                then
+                    l_result :=
+                        pos_update_sql.pos_mods_insert (o_error_message,
+                                                        c_tran_type,
+                                                        r.item,
+                                                        null, -- item_description
+                                                        null,      -- ref_item
+                                                        null,          -- dept
+                                                        null,         -- class
+                                                        null,      -- subclass
+                                                        r.loc,        -- store
+                                                        null,     -- new_price
+                                                        null, -- new_selling_uom
+                                                        null,     -- old_price
+                                                        null, -- old_selling_uom
+                                                        v_tomorrow, --tomorrow
+                                                        null, -- new_multi_units
+                                                        null, -- old_multi_units
+                                                        null, -- new_multi_unit_retail
+                                                        null, -- new_multi_selling_uom
+                                                        null, -- old_multi_unit_retail
+                                                        null, -- old_multi_selling_uom
+                                                        r.status_new, -- status
+                                                        null,   -- taxable_ind
+                                                        null,   -- launch_date
+                                                        null, -- qty_key_options
+                                                        null, -- manual_price_entry
+                                                        null,  -- deposit_code
+                                                        null, -- food_stamp_ind
+                                                        null,       -- wic_ind
+                                                        null, -- proportional_tare_pct
+                                                        null, -- fixed_tare_value
+                                                        null, -- fixed_tare_uom
+                                                        null, -- reward_eligible_ind
+                                                        null, -- elect_mtk_clubs
+                                                        null, -- return_policy
+                                                        null); -- stop_sale_ind
+
+                    if not l_result
+                    then
+                        o_error_message :=
+                            'Error during pos_update_sql.pos_mods_insert. Doc '
+                            || r.id_doc
+                            || ': '
+                            || r.item
+                            || ' '
+                            || r.loc
+                            || ' Message: '
+                            || o_error_message;
+                        return false;
+                    end if;
+                end if;
+
+                update   item_loc
+                   set   status = r.status_new,
+                         status_update_date = v_tomorrow,
+                         source_method = r.sourcemethod_new,
+                         source_wh = r.sourcewh_new
+                 where   item = r.item and loc = r.loc;
+            end if;
+        end loop;
+
+        begin
+            merge into   item_loc_traits ilt
+                 using   (select   ass.item,
+                                   ass.loc,
+                                   case
+                                       when w.wh is null then 'S'
+                                       else 'W'
+                                   end
+                                       loc_type,
+                                   TO_CHAR (doc_detail.orderplace_new) op
+                            from               y_assortment_upload ass
+                                           join
+                                               y_assortment_doc_detail doc_detail
+                                           on     doc_detail.id = ass.id_doc
+                                              and doc_detail.item = ass.item
+                                              and doc_detail.loc = ass.loc
+                                       left join
+                                           store s
+                                       on s.store = ass.loc
+                                   left join
+                                       wh w
+                                   on w.wh = ass.loc) ass
+                    on   (ass.item = ilt.item and ass.loc = ilt.loc)
+            when matched
+            then
+                update set
+                    ilt.store_reorderable_ind = ass.op,
+                    ilt.last_update_datetime = SYSDATE,
+                    ilt.last_update_id = 'RMSPRD'
+            when not matched
+            then
+                insert              (item,
+                                     loc,
+                                     store_reorderable_ind,
+                                     create_datetime,
+                                     last_update_id,
+                                     last_update_datetime)
+                    values   (ass.item,
+                              ass.loc,
+                              ass.op,
+                              SYSDATE,
+                              'RMSPRD',
+                              SYSDATE);
+        exception
+            when others
+            then
+                o_error_message :=
+                       'Error during insert into item_loc_traits.'
+                    || ' Message: '
+                    || SQLERRM;
+                /*
+                                update   y_assortment_completion_log
+                                   set   end_time = SYSDATE,
+                                         status = 'E',
+                                         text_error = o_error_message
+                                 where   id = l_seq;
+                */
+                return false;
+        end;
+
+        if not fix_primary_supplier (o_error_message)
+        then
+            return false;
+        end if;
+
+        insert into y_assortment_history
+              select   * from y_assortment_upload;
+
+        delete from   y_assortment_ready r
+              where   exists (select   1
+                                from   y_assortment_upload u
+                               where   u.item = r.item and u.loc = r.loc);
+
+        /*
+                delete from   y_assortment_total t
+                      where   exists (select   1
+                                        from   y_assortment_upload u
+                                       where   u.id_doc = t.id_doc);
+
+                delete from   y_assortment a
+                      where   exists (select   1
+                                        from   y_assortment_upload u
+                                       where   u.id_doc = a.id_doc);
+
+                update   y_assortment_doc_head h
+                   set   h.status = 'Y', h.last_update_time = SYSDATE
+                 where   h.status = 'R'
+                         and exists (select   1
+                                       from   y_assortment_upload u
+                                      where   u.id_doc = h.id);
+        */
+        update   y_assortment_doc_head h
+           set   h.status = 'C', h.last_update_time = SYSDATE
+         where   h.status = 'A' and doc_type = 'REGULAR';
+
+        delete from   y_assortment_total t
+              where   not exists (select   1
+                                    from   y_assortment_ready r
+                                   where   r.id_doc = t.id_doc);
+
+        delete from   y_assortment a
+              where   not exists (select   1
+                                    from   y_assortment_ready r
+                                   where   r.id_doc = a.id_doc);
+
+        update   y_assortment_doc_head h
+           set   h.status = 'Y', h.last_update_time = SYSDATE
+         where   h.status = 'R'
+                 and not exists (select   1
+                                   from   y_assortment_ready r
+                                  where   r.id_doc = h.id);
+
+        delete from   y_assortment_upload;
+
+        /*
+                update   y_assortment_completion_log
+                   set   end_time = SYSDATE, status = 'S'
+                 where   id = l_seq;
+        */
+        return true;
+    exception
+        when others
+        then
+            o_error_message := 'assortment_set error: ' || SQLERRM;
+            /*
+                        update   y_assortment_completion_log
+                           set   end_time = SYSDATE,
+                                 status = 'E',
+                                 text_error = o_error_message
+                         where   id = l_seq;
+            */
+            return false;
+    end;
+
+    function assortment_set_manual (o_error_message in out varchar2)
+        return boolean
+    is
+        v_tomorrow           date := get_vdate + 1;
+        c_tran_type          constant number (2) := 25;
+        l_result             boolean;
+        l_sourcemethod_new   item_loc.source_method%type;
+        l_sourcewh           item_loc.source_wh%type;
+    /*
+            l_temp               number;
+            l_seq                number;
+
+            cursor c_rows_exists
+            is
+                select   1 from y_assortment_total;
+    */
+    begin
+        /*
+                open c_rows_exists;
+
+                fetch c_rows_exists into l_temp;
+
+                if c_rows_exists%notfound
+                then
+                    insert into y_assortment_completion_log
+                      values   (y_assort_completion_log_seq.NEXTVAL,
+                                SYSDATE,
+                                SYSDATE,
+                                'N',
+                                'no rows in y_assortment_total');
+
+                    close c_rows_exists;
+
+                    return false;
+                end if;
+
+                close c_rows_exists;
+
+                select   y_assort_completion_log_seq.NEXTVAL into l_seq from DUAL;
+
+                insert into y_assortment_completion_log
+                  values   (l_seq,
+                            SYSDATE,
+                            null,
+                            null,
+                            null);
+        */
+
+        if second_grade_include (o_error_message) = false
+        then
+            return false;
+        end if;
+
+        for r
+        in (select   ass.id_doc,
+                     ass.item,
+                     ass.loc,
+                     il.loc_type,
+                     act.status status_new,
+                     doc_detail.supplier_new,
+                     doc_detail.sourcemethod_new,
+                     doc_detail.sourcewh_new,
+                     doc_detail.action,
+                     il.status status_old
+              from                   y_assortment_upload ass
+                                 join
+                                     y_assortment_doc_head doc_head
+                                 on doc_head.id = ass.id_doc
+                             join
+                                 y_assortment_doc_detail doc_detail
+                             on     doc_detail.id = doc_head.id
+                                and doc_detail.item = ass.item
+                                and doc_detail.loc = ass.loc
+                         left join
+                             item_loc il
+                         on il.item = doc_detail.item
+                            and il.loc = doc_detail.loc
+                     left join
+                         y_assortment_action act
+                     on act.id = doc_detail.action
+             where   act.status is not null and act.status <> 'U')
+        loop
+            /*
+                        if r.action in (1, 2)
+                        then
+                            l_sourcemethod_new := r.sourcemethod_new;
+                        elsif r.action = -1
+                        then
+                            l_sourcemethod_new := 'S';
+                        elsif r.action = 4
+                        then
+                            l_sourcemethod_new := 'W';
+                        end if;
+            */
+            if r.status_old is null           -- record not exists in item_loc
+            then
+                l_result :=
+                    new_item_loc (o_error_message,
+                                  r.item,
+                                  r.loc,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  r.status_new,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  v_tomorrow,
+                                  null,
+                                  i_source_method   => r.sourcemethod_new,
+                                  i_source_wh       => r.sourcewh_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                           'Error during NEW_ITEM_LOC. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+            else                                  -- record exists in item_loc
+                l_result :=
+                    item_loc_sql.status_change_valid (o_error_message,
+                                                      r.item,
+                                                      r.loc,
+                                                      r.loc_type,
+                                                      r.status_old, --old status
+                                                      r.status_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                        'Error during item_loc_sql.status_change_valid. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+
+                if r.loc_type = 'S'
+                then
+                    l_result :=
+                        pos_update_sql.pos_mods_insert (o_error_message,
+                                                        c_tran_type,
+                                                        r.item,
+                                                        null, -- item_description
+                                                        null,      -- ref_item
+                                                        null,          -- dept
+                                                        null,         -- class
+                                                        null,      -- subclass
+                                                        r.loc,        -- store
+                                                        null,     -- new_price
+                                                        null, -- new_selling_uom
+                                                        null,     -- old_price
+                                                        null, -- old_selling_uom
+                                                        v_tomorrow, --tomorrow
+                                                        null, -- new_multi_units
+                                                        null, -- old_multi_units
+                                                        null, -- new_multi_unit_retail
+                                                        null, -- new_multi_selling_uom
+                                                        null, -- old_multi_unit_retail
+                                                        null, -- old_multi_selling_uom
+                                                        r.status_new, -- status
+                                                        null,   -- taxable_ind
+                                                        null,   -- launch_date
+                                                        null, -- qty_key_options
+                                                        null, -- manual_price_entry
+                                                        null,  -- deposit_code
+                                                        null, -- food_stamp_ind
+                                                        null,       -- wic_ind
+                                                        null, -- proportional_tare_pct
+                                                        null, -- fixed_tare_value
+                                                        null, -- fixed_tare_uom
+                                                        null, -- reward_eligible_ind
+                                                        null, -- elect_mtk_clubs
+                                                        null, -- return_policy
+                                                        null); -- stop_sale_ind
+
+                    if not l_result
+                    then
+                        o_error_message :=
+                            'Error during pos_update_sql.pos_mods_insert. Doc '
+                            || r.id_doc
+                            || ': '
+                            || r.item
+                            || ' '
+                            || r.loc
+                            || ' Message: '
+                            || o_error_message;
+                        return false;
+                    end if;
+                end if;
+
+                update   item_loc
+                   set   status = r.status_new,
+                         status_update_date = v_tomorrow,
+                         source_method = r.sourcemethod_new,
+                         source_wh = r.sourcewh_new
+                 where   item = r.item and loc = r.loc;
+            end if;
+        end loop;
+
+        begin
+            merge into   item_loc_traits ilt
+                 using   (select   ass.item,
+                                   ass.loc,
+                                   case
+                                       when w.wh is null then 'S'
+                                       else 'W'
+                                   end
+                                       loc_type,
+                                   TO_CHAR (doc_detail.orderplace_new) op
+                            from               y_assortment_upload ass
+                                           join
+                                               y_assortment_doc_detail doc_detail
+                                           on     doc_detail.id = ass.id_doc
+                                              and doc_detail.item = ass.item
+                                              and doc_detail.loc = ass.loc
+                                       left join
+                                           store s
+                                       on s.store = ass.loc
+                                   left join
+                                       wh w
+                                   on w.wh = ass.loc) ass
+                    on   (ass.item = ilt.item and ass.loc = ilt.loc)
+            when matched
+            then
+                update set
+                    ilt.store_reorderable_ind = ass.op,
+                    ilt.last_update_datetime = SYSDATE,
+                    ilt.last_update_id = 'RMSPRD'
+            when not matched
+            then
+                insert              (item,
+                                     loc,
+                                     store_reorderable_ind,
+                                     create_datetime,
+                                     last_update_id,
+                                     last_update_datetime)
+                    values   (ass.item,
+                              ass.loc,
+                              ass.op,
+                              SYSDATE,
+                              'RMSPRD',
+                              SYSDATE);
+        exception
+            when others
+            then
+                o_error_message :=
+                       'Error during insert into item_loc_traits.'
+                    || ' Message: '
+                    || SQLERRM;
+                /*
+                                update   y_assortment_completion_log
+                                   set   end_time = SYSDATE,
+                                         status = 'E',
+                                         text_error = o_error_message
+                                 where   id = l_seq;
+                */
+                return false;
+        end;
+
+        if not fix_primary_supplier (o_error_message)
+        then
+            return false;
+        end if;
+
+        /*
+                insert into y_assortment_history
+                      select   * from y_assortment_upload;
+
+                delete from   y_assortment_ready r
+                      where   exists (select   1
+                                        from   y_assortment_upload u
+                                       where   u.item = r.item and u.loc = r.loc);
+
+                /*
+                        delete from   y_assortment_total t
+                              where   exists (select   1
+                                                from   y_assortment_upload u
+                                               where   u.id_doc = t.id_doc);
+
+                        delete from   y_assortment a
+                              where   exists (select   1
+                                                from   y_assortment_upload u
+                                               where   u.id_doc = a.id_doc);
+
+                        update   y_assortment_doc_head h
+                           set   h.status = 'Y', h.last_update_time = SYSDATE
+                         where   h.status = 'R'
+                                 and exists (select   1
+                                               from   y_assortment_upload u
+                                              where   u.id_doc = h.id);
+                */
+        /*
+                update   y_assortment_doc_head h
+                   set   h.status = 'C', h.last_update_time = SYSDATE
+                 where   h.status = 'A';
+
+                delete from   y_assortment_total t
+                      where   not exists (select   1
+                                            from   y_assortment_ready r
+                                           where   r.id_doc = t.id_doc);
+
+                delete from   y_assortment a
+                      where   not exists (select   1
+                                            from   y_assortment_ready r
+                                           where   r.id_doc = a.id_doc);
+
+                update   y_assortment_doc_head h
+                   set   h.status = 'Y', h.last_update_time = SYSDATE
+                 where   h.status = 'R'
+                         and not exists (select   1
+                                           from   y_assortment_ready r
+                                          where   r.id_doc = h.id);
+
+                delete from   y_assortment_upload;
+        */
+        /*
+                update   y_assortment_completion_log
+                   set   end_time = SYSDATE, status = 'S'
+                 where   id = l_seq;
+        */
+        return true;
+    exception
+        when others
+        then
+            o_error_message := 'assortment_set error: ' || SQLERRM;
+            /*
+                        update   y_assortment_completion_log
+                           set   end_time = SYSDATE,
+                                 status = 'E',
+                                 text_error = o_error_message
+                         where   id = l_seq;
+            */
+            return false;
+    end;
+
+    function assortment_set_doc (i_id_doc          in     number,
+                                 o_error_message   in out varchar2)
+        return boolean
+    is
+        v_tomorrow           date := get_vdate + 1;
+        c_tran_type          constant number (2) := 25;
+        l_result             boolean;
+        l_temp               number;
+        l_sourcemethod_new   item_loc.source_method%type;
+        l_sourcewh           item_loc.source_wh%type;
+
+        cursor c_rows_exists
+        is
+            select   1
+              from   y_assortment_doc_detail
+             where   id = i_id_doc;
+    /*
+            cursor c_doc_operative
+            is
+                select   1
+                  from   y_assortment_doc_head
+                 where   id = i_id_doc and doc_type = 'OPERATIVE';
+    */
+    begin
+        /*
+                open c_doc_operative;
+
+                fetch c_doc_operative into l_temp;
+
+                if c_doc_operative%notfound
+                then
+                    o_error_message :=
+                        'assortment_set_doc error: incorrect type of this doc';
+
+                    close c_doc_operative;
+
+                    return;
+                end if;
+
+                close c_doc_operative;
+        */
+        open c_rows_exists;
+
+        fetch c_rows_exists into l_temp;
+
+        if c_rows_exists%notfound
+        then
+            o_error_message := 'assortment_set_doc error: no rows in this doc';
+
+            close c_rows_exists;
+
+            return false;
+        end if;
+
+        close c_rows_exists;
+
+        delete from   y_assortment_upload;
+
+        insert into y_assortment_upload
+            select   item, loc, id
+              from   y_assortment_doc_detail
+             where   id = i_id_doc;
+
+        if second_grade_include (o_error_message) = false
+        then
+            return false;
+        end if;
+
+        for r
+        in (select   ass.id_doc,
+                     ass.item,
+                     ass.loc,
+                     il.loc_type,
+                     act.status status_new,
+                     doc_detail.supplier_new,
+                     doc_detail.sourcemethod_new,
+                     doc_detail.sourcewh_new,
+                     doc_detail.action,
+                     il.status status_old
+              from                   y_assortment_upload ass
+                                 join
+                                     y_assortment_doc_head doc_head
+                                 on doc_head.id = ass.id_doc
+                             join
+                                 y_assortment_doc_detail doc_detail
+                             on     doc_detail.id = doc_head.id
+                                and doc_detail.item = ass.item
+                                and doc_detail.loc = ass.loc
+                         left join
+                             item_loc il
+                         on il.item = doc_detail.item
+                            and il.loc = doc_detail.loc
+                     left join
+                         y_assortment_action act
+                     on act.id = doc_detail.action
+             where   act.status is not null and act.status <> 'U')
+        loop
+            if r.status_old is null           -- record not exists in item_loc
+            then
+                l_result :=
+                    new_item_loc (o_error_message,
+                                  r.item,
+                                  r.loc,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  r.status_new,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  null,
+                                  v_tomorrow,
+                                  null,
+                                  i_source_method   => r.sourcemethod_new,
+                                  i_source_wh       => r.sourcewh_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                           'Error during NEW_ITEM_LOC. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+            else                                  -- record exists in item_loc
+                l_result :=
+                    item_loc_sql.status_change_valid (o_error_message,
+                                                      r.item,
+                                                      r.loc,
+                                                      r.loc_type,
+                                                      r.status_old, --old status
+                                                      r.status_new);
+
+                if not l_result
+                then
+                    o_error_message :=
+                        'Error during item_loc_sql.status_change_valid. Doc '
+                        || r.id_doc
+                        || ': '
+                        || r.item
+                        || ' '
+                        || r.loc
+                        || ' Message: '
+                        || o_error_message;
+                    return false;
+                end if;
+
+                if r.loc_type = 'S'
+                then
+                    l_result :=
+                        pos_update_sql.pos_mods_insert (o_error_message,
+                                                        c_tran_type,
+                                                        r.item,
+                                                        null, -- item_description
+                                                        null,      -- ref_item
+                                                        null,          -- dept
+                                                        null,         -- class
+                                                        null,      -- subclass
+                                                        r.loc,        -- store
+                                                        null,     -- new_price
+                                                        null, -- new_selling_uom
+                                                        null,     -- old_price
+                                                        null, -- old_selling_uom
+                                                        v_tomorrow, --tomorrow
+                                                        null, -- new_multi_units
+                                                        null, -- old_multi_units
+                                                        null, -- new_multi_unit_retail
+                                                        null, -- new_multi_selling_uom
+                                                        null, -- old_multi_unit_retail
+                                                        null, -- old_multi_selling_uom
+                                                        r.status_new, -- status
+                                                        null,   -- taxable_ind
+                                                        null,   -- launch_date
+                                                        null, -- qty_key_options
+                                                        null, -- manual_price_entry
+                                                        null,  -- deposit_code
+                                                        null, -- food_stamp_ind
+                                                        null,       -- wic_ind
+                                                        null, -- proportional_tare_pct
+                                                        null, -- fixed_tare_value
+                                                        null, -- fixed_tare_uom
+                                                        null, -- reward_eligible_ind
+                                                        null, -- elect_mtk_clubs
+                                                        null, -- return_policy
+                                                        null); -- stop_sale_ind
+
+                    if not l_result
+                    then
+                        o_error_message :=
+                            'Error during pos_update_sql.pos_mods_insert. Doc '
+                            || r.id_doc
+                            || ': '
+                            || r.item
+                            || ' '
+                            || r.loc
+                            || ' Message: '
+                            || o_error_message;
+                        return false;
+                    end if;
+                end if;
+
+                update   item_loc
+                   set   status = r.status_new,
+                         status_update_date = v_tomorrow,
+                         source_method = r.sourcemethod_new,
+                         source_wh = r.sourcewh_new
+                 where   item = r.item and loc = r.loc;
+            end if;
+        end loop;
+
+        begin
+            merge into   item_loc_traits ilt
+                 using   (select   ass.item,
+                                   ass.loc,
+                                   case
+                                       when w.wh is null then 'S'
+                                       else 'W'
+                                   end
+                                       loc_type,
+                                   TO_CHAR (doc_detail.orderplace_new) op
+                            from               y_assortment_upload ass
+                                           join
+                                               y_assortment_doc_detail doc_detail
+                                           on     doc_detail.id = ass.id_doc
+                                              and doc_detail.item = ass.item
+                                              and doc_detail.loc = ass.loc
+                                       left join
+                                           store s
+                                       on s.store = ass.loc
+                                   left join
+                                       wh w
+                                   on w.wh = ass.loc) ass
+                    on   (ass.item = ilt.item and ass.loc = ilt.loc)
+            when matched
+            then
+                update set
+                    ilt.store_reorderable_ind = ass.op,
+                    ilt.last_update_datetime = SYSDATE,
+                    ilt.last_update_id = 'RMSPRD'
+            when not matched
+            then
+                insert              (item,
+                                     loc,
+                                     store_reorderable_ind,
+                                     create_datetime,
+                                     last_update_id,
+                                     last_update_datetime)
+                    values   (ass.item,
+                              ass.loc,
+                              ass.op,
+                              SYSDATE,
+                              'RMSPRD',
+                              SYSDATE);
+
+            y_assortment_log.log_detail_add ('DOC_UPLOADED',
+                                             TO_CHAR (i_id_doc),
+                                             o_error_message);
+        exception
+            when others
+            then
+                o_error_message :=
+                       'Error during insert into item_loc_traits.'
+                    || ' Message: '
+                    || SQLERRM;
+                /*
+                                update   y_assortment_completion_log
+                                   set   end_time = SYSDATE,
+                                         status = 'E',
+                                         text_error = o_error_message
+                                 where   id = l_seq;
+                */
+                return false;
+        end;
+
+        if not fix_primary_supplier (o_error_message)
+        then
+            return false;
+        end if;
+
+        insert into y_assortment_history
+              select   * from y_assortment_upload;
+
+        update   y_assortment_doc_head
+           set   status = 'Y', last_update_time = SYSDATE
+         where   id = i_id_doc;
+
+        /*
+                update   y_assortment_completion_log
+                   set   end_time = SYSDATE, status = 'S'
+                 where   id = l_seq;
+        */
+        return true;
+    exception
+        when others
+        then
+            o_error_message := 'assortment_set error: ' || SQLERRM;
+            return false;
+    end;
+
+    function assortment_set_operative (o_error_message in out varchar2)
+        return boolean
+    is
+    begin
+        for r in (select   *
+                    from   y_assortment_doc_head h
+                   where   h.status = 'A' and h.doc_type = 'OPERATIVE')
+        loop
+            savepoint state_0;
+
+            if y_assortment_completion.assortment_set_doc (r.id,
+                                                           o_error_message) =
+                   false
+            then
+                rollback to state_0;
+            end if;
+
+            commit;
+        end loop;
+
+        return true;
+    exception
+        when others
+        then
+            o_error_message := 'assortment_set_operative error: ' || SQLERRM;
+            return false;
+    end;
+end;
+/

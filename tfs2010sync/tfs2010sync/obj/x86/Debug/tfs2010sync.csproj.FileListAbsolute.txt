@@ -1,0 +1,13 @@
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\oci.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\orannzsbb11.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\oraociei11.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\OraOps11w.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\tfs2010sync.exe
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\tfs2010sync.pdb
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\obj\x86\Debug\tfs2010sync.exe
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\obj\x86\Debug\tfs2010sync.pdb
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\tfs2010sync.exe.config
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\lapshin\Documents\Visual Studio 2010\TFS2010PROJECTS\4you\tfs2010sync\tfs2010sync\bin\Debug\Newtonsoft.Json.xml
